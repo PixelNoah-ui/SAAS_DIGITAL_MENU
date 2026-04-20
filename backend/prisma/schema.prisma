@@ -44,31 +44,22 @@ model Table {
   @@map("tables")
 }
 
-model Category {
-  id        String   @id @default(uuid())
-  name      String
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
 
-  menuItems MenuItem[]
-
-  @@map("categories")
-}
 
 model MenuItem {
   id          String    @id @default(uuid())
   name        String
   description String?
   price       Decimal   @db.Decimal(10, 2)
-  image       String?
-  isAvailable Boolean   @default(true)
-  categoryId  String
+  imageUrl      String?
+  imagePublicId String?
+  category       String
+  preparationTime Int     @default(15) // in minutes
+  isAvailable  Boolean   @default(true)
   createdAt   DateTime  @default(now())
 
-  category    Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   orderItems  OrderItem[]
 
-  @@index([categoryId])
   @@map("menu_items")
 }
 
@@ -78,7 +69,6 @@ model Order {
   orderSessionId String?
   status         OrderStatus @default(PENDING)
   totalAmount    Decimal     @db.Decimal(10, 2)
-  paymentProof   String?
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
 
@@ -138,4 +128,17 @@ model AdminUser {
   createdAt           DateTime  @default(now())
 
   @@map("admin_users")
+}
+
+model RestaurantInfo {
+  id             String   @id @default(uuid())
+  name           String   
+  phone          String   
+  address        String   
+  room           String   
+  telegramUsername String 
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("restaurant_info")
 }

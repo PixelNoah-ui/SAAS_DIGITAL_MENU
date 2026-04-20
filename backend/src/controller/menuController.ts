@@ -1,28 +1,25 @@
 import { AppError } from "../utils/AppError.js";
 import { catchAsync } from "../utils/catchAsync.js";
 import { prisma } from "../lib/Prisma.js";
-import { Prisma } from "../generated/prisma/client.js";
-
-const parseBooleanQuery = (value: string | string[] | undefined) => {
-  if (value === undefined) return undefined;
-  if (Array.isArray(value)) value = value[0];
-  return value === "true" || value === "1";
-};
 
 export const getMenuItems = catchAsync(async (req, res) => {
-  const categoryId =
-    typeof req.query.categoryId === "string" ? req.query.categoryId : undefined;
-  const isAvailable = parseBooleanQuery(
-    req.query.isAvailable as string | undefined,
-  );
-  const search =
-    typeof req.query.search === "string" ? req.query.search.trim() : undefined;
+  const search = req.query.search as string | undefined;
   const page = Math.max(1, Number(req.query.page) || 1);
   const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 50));
 
+  // Filter params
+  const collections = req.query.collections;
+  const priceMin = req.query.price_min
+    ? Number(req.query.price_min)
+    : undefined;
+  const priceMax = req.query.price_max
+    ? Number(req.query.price_max)
+    : undefined;
+  const sort = (req.query.sort as string) || "last_updated";
+
   const where: any = {};
-  if (categoryId) where.categoryId = categoryId;
-  if (isAvailable !== undefined) where.isAvailable = isAvailable;
+
+  // Search filter
   if (search) {
     where.OR = [
       { name: { contains: search, mode: "insensitive" } },
@@ -30,10 +27,54 @@ export const getMenuItems = catchAsync(async (req, res) => {
     ];
   }
 
+  // Collection/Category filter
+  if (collections) {
+    const categoryList = Array.isArray(collections)
+      ? collections
+      : [collections];
+    where.category = { in: categoryList };
+  }
+
+  // Price range filter
+  if (priceMin !== undefined || priceMax !== undefined) {
+    where.price = {};
+    if (priceMin !== undefined) {
+      where.price.gte = priceMin;
+    }
+    if (priceMax !== undefined) {
+      where.price.lte = priceMax;
+    }
+  }
+
+  // Only show available items
+  where.isAvailable = true;
+
+  // Sorting
+  let orderBy: any = { createdAt: "desc" };
+  switch (sort) {
+    case "price_asc":
+      orderBy = { price: "asc" };
+      break;
+    case "price_desc":
+      orderBy = { price: "desc" };
+      break;
+    case "name_asc":
+      orderBy = { name: "asc" };
+      break;
+    case "name_desc":
+      orderBy = { name: "desc" };
+      break;
+    case "last_updated":
+    default:
+      orderBy = { updatedAt: "desc" };
+      break;
+  }
+
+  const total = await prisma.menuItem.count({ where });
+
   const menuItems = await prisma.menuItem.findMany({
     where,
-    include: { category: true },
-    orderBy: { createdAt: "desc" },
+    orderBy,
     skip: (page - 1) * limit,
     take: limit,
   });
@@ -41,6 +82,7 @@ export const getMenuItems = catchAsync(async (req, res) => {
   res.status(200).json({
     status: "success",
     results: menuItems.length,
+    totalPages: Math.ceil(total / limit),
     data: { menuItems },
   });
 });
@@ -49,7 +91,6 @@ export const getMenuItem = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const menuItem = await prisma.menuItem.findUnique({
     where: { id: id as string },
-    include: { category: true },
   });
 
   if (!menuItem) {
@@ -65,16 +106,8 @@ export const getMenuItem = catchAsync(async (req, res, next) => {
 export const createMenuItem = catchAsync(async (req, res, next) => {
   const data = req.body;
 
-  const category = await prisma.category.findUnique({
-    where: { id: data.categoryId },
-  });
-  if (!category) {
-    return next(new AppError("Category not found", 404));
-  }
-
   const menuItem = await prisma.menuItem.create({
     data,
-    include: { category: true },
   });
 
   res.status(201).json({
@@ -87,15 +120,6 @@ export const updateMenuItem = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const updateData = req.body;
 
-  if (updateData.categoryId) {
-    const category = await prisma.category.findUnique({
-      where: { id: updateData.categoryId },
-    });
-    if (!category) {
-      return next(new AppError("Category not found", 404));
-    }
-  }
-
   const existingMenuItem = await prisma.menuItem.findUnique({
     where: { id: id as string },
   });
@@ -106,7 +130,6 @@ export const updateMenuItem = catchAsync(async (req, res, next) => {
   const menuItem = await prisma.menuItem.update({
     where: { id: id as string },
     data: updateData,
-    include: { category: true },
   });
 
   res.status(200).json({

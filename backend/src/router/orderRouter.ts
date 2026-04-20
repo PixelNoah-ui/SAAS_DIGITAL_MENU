@@ -4,6 +4,7 @@ import { restrictTo } from "../middleware/restrictTo.js";
 import {
   createOrReuseOrderSession,
   createOrder,
+  getOrdersBySession,
   getOrders,
   getOrder,
   updateOrderStatus,
@@ -13,6 +14,7 @@ import {
 const router = express.Router();
 
 router.post("/sessions", createOrReuseOrderSession);
+router.get("/session", getOrdersBySession);
 router.post("/", createOrder);
 
 router.use(protect, restrictTo("ADMIN", "MANAGER"));

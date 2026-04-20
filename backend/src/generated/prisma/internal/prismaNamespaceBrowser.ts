@@ -52,12 +52,12 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Table: 'Table',
-  Category: 'Category',
   MenuItem: 'MenuItem',
   Order: 'Order',
   OrderSession: 'OrderSession',
   OrderItem: 'OrderItem',
-  AdminUser: 'AdminUser'
+  AdminUser: 'AdminUser',
+  RestaurantInfo: 'RestaurantInfo'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -87,24 +87,16 @@ export const TableScalarFieldEnum = {
 export type TableScalarFieldEnum = (typeof TableScalarFieldEnum)[keyof typeof TableScalarFieldEnum]
 
 
-export const CategoryScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  isActive: 'isActive',
-  createdAt: 'createdAt'
-} as const
-
-export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
-
-
 export const MenuItemScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
   price: 'price',
-  image: 'image',
+  imageUrl: 'imageUrl',
+  imagePublicId: 'imagePublicId',
+  category: 'category',
+  preparationTime: 'preparationTime',
   isAvailable: 'isAvailable',
-  categoryId: 'categoryId',
   createdAt: 'createdAt'
 } as const
 
@@ -117,7 +109,6 @@ export const OrderScalarFieldEnum = {
   orderSessionId: 'orderSessionId',
   status: 'status',
   totalAmount: 'totalAmount',
-  paymentProof: 'paymentProof',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -165,6 +156,20 @@ export const AdminUserScalarFieldEnum = {
 } as const
 
 export type AdminUserScalarFieldEnum = (typeof AdminUserScalarFieldEnum)[keyof typeof AdminUserScalarFieldEnum]
+
+
+export const RestaurantInfoScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  phone: 'phone',
+  address: 'address',
+  room: 'room',
+  telegramUsername: 'telegramUsername',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RestaurantInfoScalarFieldEnum = (typeof RestaurantInfoScalarFieldEnum)[keyof typeof RestaurantInfoScalarFieldEnum]
 
 
 export const SortOrder = {

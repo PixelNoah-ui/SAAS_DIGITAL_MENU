@@ -1,10 +1,44 @@
-export default function Home() {
+import { MenuGrid } from "@/components/MenuGrid";
+import SearchFilterLayout from "./SearchFilter";
+import getMenus from "@/app/(api)/getMenus";
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const params = await searchParams;
+
+  const collection = [
+    { name: "Breakfast", slug: "breakfast" },
+    { name: "Lunch", slug: "lunch" },
+    { name: "Dinner", slug: "dinner" },
+    { name: "Drinks", slug: "drinks" },
+  ];
+
+  // Build filters from URL params
+  const filters = {
+    collections: params.collection,
+    price_min: params.price_min ? Number(params.price_min) : undefined,
+    price_max: params.price_max ? Number(params.price_max) : undefined,
+    sort: params.sort as string | undefined,
+    search: params.search as string | undefined,
+    page: params.page ? Number(params.page) : 1,
+  };
+
+  const { menuItems, totalPages } = await getMenus(filters);
+
+  const currentPage = filters.page || 1;
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-4xl font-bold">Welcome to the Digital Menu App</h1>
-      <p className="mt-4 text-lg text-gray-600">
-        Please log in to view the menu and place your order.
-      </p>
-    </main>
+    <div>
+      <SearchFilterLayout collections={collection}>
+        <MenuGrid
+          menuItems={menuItems}
+          totalPages={totalPages}
+          currentPage={currentPage}
+        />
+      </SearchFilterLayout>
+    </div>
   );
 }

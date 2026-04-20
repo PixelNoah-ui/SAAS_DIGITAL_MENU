@@ -7,6 +7,7 @@ import {
   deleteMenuItem,
   getMenuItem,
   getMenuItems,
+  getCategories,
   updateMenuItem,
 } from "../controller/menuController.js";
 

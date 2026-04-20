@@ -23,11 +23,6 @@ export * from './enums.js';
  */
 export type Table = Prisma.TableModel
 /**
- * Model Category
- * 
- */
-export type Category = Prisma.CategoryModel
-/**
  * Model MenuItem
  * 
  */
@@ -52,3 +47,8 @@ export type OrderItem = Prisma.OrderItemModel
  * 
  */
 export type AdminUser = Prisma.AdminUserModel
+/**
+ * Model RestaurantInfo
+ * 
+ */
+export type RestaurantInfo = Prisma.RestaurantInfoModel

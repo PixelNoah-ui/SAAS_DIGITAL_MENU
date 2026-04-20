@@ -28,10 +28,12 @@ export type AggregateMenuItem = {
 
 export type MenuItemAvgAggregateOutputType = {
   price: runtime.Decimal | null
+  preparationTime: number | null
 }
 
 export type MenuItemSumAggregateOutputType = {
   price: runtime.Decimal | null
+  preparationTime: number | null
 }
 
 export type MenuItemMinAggregateOutputType = {
@@ -39,9 +41,11 @@ export type MenuItemMinAggregateOutputType = {
   name: string | null
   description: string | null
   price: runtime.Decimal | null
-  image: string | null
+  imageUrl: string | null
+  imagePublicId: string | null
+  category: string | null
+  preparationTime: number | null
   isAvailable: boolean | null
-  categoryId: string | null
   createdAt: Date | null
 }
 
@@ -50,9 +54,11 @@ export type MenuItemMaxAggregateOutputType = {
   name: string | null
   description: string | null
   price: runtime.Decimal | null
-  image: string | null
+  imageUrl: string | null
+  imagePublicId: string | null
+  category: string | null
+  preparationTime: number | null
   isAvailable: boolean | null
-  categoryId: string | null
   createdAt: Date | null
 }
 
@@ -61,9 +67,11 @@ export type MenuItemCountAggregateOutputType = {
   name: number
   description: number
   price: number
-  image: number
+  imageUrl: number
+  imagePublicId: number
+  category: number
+  preparationTime: number
   isAvailable: number
-  categoryId: number
   createdAt: number
   _all: number
 }
@@ -71,10 +79,12 @@ export type MenuItemCountAggregateOutputType = {
 
 export type MenuItemAvgAggregateInputType = {
   price?: true
+  preparationTime?: true
 }
 
 export type MenuItemSumAggregateInputType = {
   price?: true
+  preparationTime?: true
 }
 
 export type MenuItemMinAggregateInputType = {
@@ -82,9 +92,11 @@ export type MenuItemMinAggregateInputType = {
   name?: true
   description?: true
   price?: true
-  image?: true
+  imageUrl?: true
+  imagePublicId?: true
+  category?: true
+  preparationTime?: true
   isAvailable?: true
-  categoryId?: true
   createdAt?: true
 }
 
@@ -93,9 +105,11 @@ export type MenuItemMaxAggregateInputType = {
   name?: true
   description?: true
   price?: true
-  image?: true
+  imageUrl?: true
+  imagePublicId?: true
+  category?: true
+  preparationTime?: true
   isAvailable?: true
-  categoryId?: true
   createdAt?: true
 }
 
@@ -104,9 +118,11 @@ export type MenuItemCountAggregateInputType = {
   name?: true
   description?: true
   price?: true
-  image?: true
+  imageUrl?: true
+  imagePublicId?: true
+  category?: true
+  preparationTime?: true
   isAvailable?: true
-  categoryId?: true
   createdAt?: true
   _all?: true
 }
@@ -202,9 +218,11 @@ export type MenuItemGroupByOutputType = {
   name: string
   description: string | null
   price: runtime.Decimal
-  image: string | null
+  imageUrl: string | null
+  imagePublicId: string | null
+  category: string
+  preparationTime: number
   isAvailable: boolean
-  categoryId: string
   createdAt: Date
   _count: MenuItemCountAggregateOutputType | null
   _avg: MenuItemAvgAggregateOutputType | null
@@ -236,11 +254,12 @@ export type MenuItemWhereInput = {
   name?: Prisma.StringFilter<"MenuItem"> | string
   description?: Prisma.StringNullableFilter<"MenuItem"> | string | null
   price?: Prisma.DecimalFilter<"MenuItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: Prisma.StringNullableFilter<"MenuItem"> | string | null
+  imageUrl?: Prisma.StringNullableFilter<"MenuItem"> | string | null
+  imagePublicId?: Prisma.StringNullableFilter<"MenuItem"> | string | null
+  category?: Prisma.StringFilter<"MenuItem"> | string
+  preparationTime?: Prisma.IntFilter<"MenuItem"> | number
   isAvailable?: Prisma.BoolFilter<"MenuItem"> | boolean
-  categoryId?: Prisma.StringFilter<"MenuItem"> | string
   createdAt?: Prisma.DateTimeFilter<"MenuItem"> | Date | string
-  category?: Prisma.XOR<Prisma.CategoryScalarRelationFilter, Prisma.CategoryWhereInput>
   orderItems?: Prisma.OrderItemListRelationFilter
 }
 
@@ -249,11 +268,12 @@ export type MenuItemOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   price?: Prisma.SortOrder
-  image?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  imagePublicId?: Prisma.SortOrderInput | Prisma.SortOrder
+  category?: Prisma.SortOrder
+  preparationTime?: Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
-  categoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  category?: Prisma.CategoryOrderByWithRelationInput
   orderItems?: Prisma.OrderItemOrderByRelationAggregateInput
 }
 
@@ -265,11 +285,12 @@ export type MenuItemWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"MenuItem"> | string
   description?: Prisma.StringNullableFilter<"MenuItem"> | string | null
   price?: Prisma.DecimalFilter<"MenuItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: Prisma.StringNullableFilter<"MenuItem"> | string | null
+  imageUrl?: Prisma.StringNullableFilter<"MenuItem"> | string | null
+  imagePublicId?: Prisma.StringNullableFilter<"MenuItem"> | string | null
+  category?: Prisma.StringFilter<"MenuItem"> | string
+  preparationTime?: Prisma.IntFilter<"MenuItem"> | number
   isAvailable?: Prisma.BoolFilter<"MenuItem"> | boolean
-  categoryId?: Prisma.StringFilter<"MenuItem"> | string
   createdAt?: Prisma.DateTimeFilter<"MenuItem"> | Date | string
-  category?: Prisma.XOR<Prisma.CategoryScalarRelationFilter, Prisma.CategoryWhereInput>
   orderItems?: Prisma.OrderItemListRelationFilter
 }, "id">
 
@@ -278,9 +299,11 @@ export type MenuItemOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   price?: Prisma.SortOrder
-  image?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  imagePublicId?: Prisma.SortOrderInput | Prisma.SortOrder
+  category?: Prisma.SortOrder
+  preparationTime?: Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
-  categoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.MenuItemCountOrderByAggregateInput
   _avg?: Prisma.MenuItemAvgOrderByAggregateInput
@@ -297,9 +320,11 @@ export type MenuItemScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"MenuItem"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"MenuItem"> | string | null
   price?: Prisma.DecimalWithAggregatesFilter<"MenuItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: Prisma.StringNullableWithAggregatesFilter<"MenuItem"> | string | null
+  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"MenuItem"> | string | null
+  imagePublicId?: Prisma.StringNullableWithAggregatesFilter<"MenuItem"> | string | null
+  category?: Prisma.StringWithAggregatesFilter<"MenuItem"> | string
+  preparationTime?: Prisma.IntWithAggregatesFilter<"MenuItem"> | number
   isAvailable?: Prisma.BoolWithAggregatesFilter<"MenuItem"> | boolean
-  categoryId?: Prisma.StringWithAggregatesFilter<"MenuItem"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"MenuItem"> | Date | string
 }
 
@@ -308,10 +333,12 @@ export type MenuItemCreateInput = {
   name: string
   description?: string | null
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: string | null
+  imageUrl?: string | null
+  imagePublicId?: string | null
+  category: string
+  preparationTime?: number
   isAvailable?: boolean
   createdAt?: Date | string
-  category: Prisma.CategoryCreateNestedOneWithoutMenuItemsInput
   orderItems?: Prisma.OrderItemCreateNestedManyWithoutMenuItemInput
 }
 
@@ -320,9 +347,11 @@ export type MenuItemUncheckedCreateInput = {
   name: string
   description?: string | null
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: string | null
+  imageUrl?: string | null
+  imagePublicId?: string | null
+  category: string
+  preparationTime?: number
   isAvailable?: boolean
-  categoryId: string
   createdAt?: Date | string
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutMenuItemInput
 }
@@ -332,10 +361,12 @@ export type MenuItemUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  category?: Prisma.CategoryUpdateOneRequiredWithoutMenuItemsNestedInput
   orderItems?: Prisma.OrderItemUpdateManyWithoutMenuItemNestedInput
 }
 
@@ -344,9 +375,11 @@ export type MenuItemUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutMenuItemNestedInput
 }
@@ -356,9 +389,11 @@ export type MenuItemCreateManyInput = {
   name: string
   description?: string | null
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: string | null
+  imageUrl?: string | null
+  imagePublicId?: string | null
+  category: string
+  preparationTime?: number
   isAvailable?: boolean
-  categoryId: string
   createdAt?: Date | string
 }
 
@@ -367,7 +402,10 @@ export type MenuItemUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -377,20 +415,12 @@ export type MenuItemUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type MenuItemListRelationFilter = {
-  every?: Prisma.MenuItemWhereInput
-  some?: Prisma.MenuItemWhereInput
-  none?: Prisma.MenuItemWhereInput
-}
-
-export type MenuItemOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
 }
 
 export type MenuItemCountOrderByAggregateInput = {
@@ -398,14 +428,17 @@ export type MenuItemCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  image?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  imagePublicId?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  preparationTime?: Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
-  categoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type MenuItemAvgOrderByAggregateInput = {
   price?: Prisma.SortOrder
+  preparationTime?: Prisma.SortOrder
 }
 
 export type MenuItemMaxOrderByAggregateInput = {
@@ -413,9 +446,11 @@ export type MenuItemMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  image?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  imagePublicId?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  preparationTime?: Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
-  categoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -424,61 +459,22 @@ export type MenuItemMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   price?: Prisma.SortOrder
-  image?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  imagePublicId?: Prisma.SortOrder
+  category?: Prisma.SortOrder
+  preparationTime?: Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
-  categoryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type MenuItemSumOrderByAggregateInput = {
   price?: Prisma.SortOrder
+  preparationTime?: Prisma.SortOrder
 }
 
 export type MenuItemScalarRelationFilter = {
   is?: Prisma.MenuItemWhereInput
   isNot?: Prisma.MenuItemWhereInput
-}
-
-export type MenuItemCreateNestedManyWithoutCategoryInput = {
-  create?: Prisma.XOR<Prisma.MenuItemCreateWithoutCategoryInput, Prisma.MenuItemUncheckedCreateWithoutCategoryInput> | Prisma.MenuItemCreateWithoutCategoryInput[] | Prisma.MenuItemUncheckedCreateWithoutCategoryInput[]
-  connectOrCreate?: Prisma.MenuItemCreateOrConnectWithoutCategoryInput | Prisma.MenuItemCreateOrConnectWithoutCategoryInput[]
-  createMany?: Prisma.MenuItemCreateManyCategoryInputEnvelope
-  connect?: Prisma.MenuItemWhereUniqueInput | Prisma.MenuItemWhereUniqueInput[]
-}
-
-export type MenuItemUncheckedCreateNestedManyWithoutCategoryInput = {
-  create?: Prisma.XOR<Prisma.MenuItemCreateWithoutCategoryInput, Prisma.MenuItemUncheckedCreateWithoutCategoryInput> | Prisma.MenuItemCreateWithoutCategoryInput[] | Prisma.MenuItemUncheckedCreateWithoutCategoryInput[]
-  connectOrCreate?: Prisma.MenuItemCreateOrConnectWithoutCategoryInput | Prisma.MenuItemCreateOrConnectWithoutCategoryInput[]
-  createMany?: Prisma.MenuItemCreateManyCategoryInputEnvelope
-  connect?: Prisma.MenuItemWhereUniqueInput | Prisma.MenuItemWhereUniqueInput[]
-}
-
-export type MenuItemUpdateManyWithoutCategoryNestedInput = {
-  create?: Prisma.XOR<Prisma.MenuItemCreateWithoutCategoryInput, Prisma.MenuItemUncheckedCreateWithoutCategoryInput> | Prisma.MenuItemCreateWithoutCategoryInput[] | Prisma.MenuItemUncheckedCreateWithoutCategoryInput[]
-  connectOrCreate?: Prisma.MenuItemCreateOrConnectWithoutCategoryInput | Prisma.MenuItemCreateOrConnectWithoutCategoryInput[]
-  upsert?: Prisma.MenuItemUpsertWithWhereUniqueWithoutCategoryInput | Prisma.MenuItemUpsertWithWhereUniqueWithoutCategoryInput[]
-  createMany?: Prisma.MenuItemCreateManyCategoryInputEnvelope
-  set?: Prisma.MenuItemWhereUniqueInput | Prisma.MenuItemWhereUniqueInput[]
-  disconnect?: Prisma.MenuItemWhereUniqueInput | Prisma.MenuItemWhereUniqueInput[]
-  delete?: Prisma.MenuItemWhereUniqueInput | Prisma.MenuItemWhereUniqueInput[]
-  connect?: Prisma.MenuItemWhereUniqueInput | Prisma.MenuItemWhereUniqueInput[]
-  update?: Prisma.MenuItemUpdateWithWhereUniqueWithoutCategoryInput | Prisma.MenuItemUpdateWithWhereUniqueWithoutCategoryInput[]
-  updateMany?: Prisma.MenuItemUpdateManyWithWhereWithoutCategoryInput | Prisma.MenuItemUpdateManyWithWhereWithoutCategoryInput[]
-  deleteMany?: Prisma.MenuItemScalarWhereInput | Prisma.MenuItemScalarWhereInput[]
-}
-
-export type MenuItemUncheckedUpdateManyWithoutCategoryNestedInput = {
-  create?: Prisma.XOR<Prisma.MenuItemCreateWithoutCategoryInput, Prisma.MenuItemUncheckedCreateWithoutCategoryInput> | Prisma.MenuItemCreateWithoutCategoryInput[] | Prisma.MenuItemUncheckedCreateWithoutCategoryInput[]
-  connectOrCreate?: Prisma.MenuItemCreateOrConnectWithoutCategoryInput | Prisma.MenuItemCreateOrConnectWithoutCategoryInput[]
-  upsert?: Prisma.MenuItemUpsertWithWhereUniqueWithoutCategoryInput | Prisma.MenuItemUpsertWithWhereUniqueWithoutCategoryInput[]
-  createMany?: Prisma.MenuItemCreateManyCategoryInputEnvelope
-  set?: Prisma.MenuItemWhereUniqueInput | Prisma.MenuItemWhereUniqueInput[]
-  disconnect?: Prisma.MenuItemWhereUniqueInput | Prisma.MenuItemWhereUniqueInput[]
-  delete?: Prisma.MenuItemWhereUniqueInput | Prisma.MenuItemWhereUniqueInput[]
-  connect?: Prisma.MenuItemWhereUniqueInput | Prisma.MenuItemWhereUniqueInput[]
-  update?: Prisma.MenuItemUpdateWithWhereUniqueWithoutCategoryInput | Prisma.MenuItemUpdateWithWhereUniqueWithoutCategoryInput[]
-  updateMany?: Prisma.MenuItemUpdateManyWithWhereWithoutCategoryInput | Prisma.MenuItemUpdateManyWithWhereWithoutCategoryInput[]
-  deleteMany?: Prisma.MenuItemScalarWhereInput | Prisma.MenuItemScalarWhereInput[]
 }
 
 export type NullableStringFieldUpdateOperationsInput = {
@@ -491,6 +487,14 @@ export type DecimalFieldUpdateOperationsInput = {
   decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
   multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type MenuItemCreateNestedOneWithoutOrderItemsInput = {
@@ -507,77 +511,17 @@ export type MenuItemUpdateOneRequiredWithoutOrderItemsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.MenuItemUpdateToOneWithWhereWithoutOrderItemsInput, Prisma.MenuItemUpdateWithoutOrderItemsInput>, Prisma.MenuItemUncheckedUpdateWithoutOrderItemsInput>
 }
 
-export type MenuItemCreateWithoutCategoryInput = {
-  id?: string
-  name: string
-  description?: string | null
-  price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: string | null
-  isAvailable?: boolean
-  createdAt?: Date | string
-  orderItems?: Prisma.OrderItemCreateNestedManyWithoutMenuItemInput
-}
-
-export type MenuItemUncheckedCreateWithoutCategoryInput = {
-  id?: string
-  name: string
-  description?: string | null
-  price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: string | null
-  isAvailable?: boolean
-  createdAt?: Date | string
-  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutMenuItemInput
-}
-
-export type MenuItemCreateOrConnectWithoutCategoryInput = {
-  where: Prisma.MenuItemWhereUniqueInput
-  create: Prisma.XOR<Prisma.MenuItemCreateWithoutCategoryInput, Prisma.MenuItemUncheckedCreateWithoutCategoryInput>
-}
-
-export type MenuItemCreateManyCategoryInputEnvelope = {
-  data: Prisma.MenuItemCreateManyCategoryInput | Prisma.MenuItemCreateManyCategoryInput[]
-  skipDuplicates?: boolean
-}
-
-export type MenuItemUpsertWithWhereUniqueWithoutCategoryInput = {
-  where: Prisma.MenuItemWhereUniqueInput
-  update: Prisma.XOR<Prisma.MenuItemUpdateWithoutCategoryInput, Prisma.MenuItemUncheckedUpdateWithoutCategoryInput>
-  create: Prisma.XOR<Prisma.MenuItemCreateWithoutCategoryInput, Prisma.MenuItemUncheckedCreateWithoutCategoryInput>
-}
-
-export type MenuItemUpdateWithWhereUniqueWithoutCategoryInput = {
-  where: Prisma.MenuItemWhereUniqueInput
-  data: Prisma.XOR<Prisma.MenuItemUpdateWithoutCategoryInput, Prisma.MenuItemUncheckedUpdateWithoutCategoryInput>
-}
-
-export type MenuItemUpdateManyWithWhereWithoutCategoryInput = {
-  where: Prisma.MenuItemScalarWhereInput
-  data: Prisma.XOR<Prisma.MenuItemUpdateManyMutationInput, Prisma.MenuItemUncheckedUpdateManyWithoutCategoryInput>
-}
-
-export type MenuItemScalarWhereInput = {
-  AND?: Prisma.MenuItemScalarWhereInput | Prisma.MenuItemScalarWhereInput[]
-  OR?: Prisma.MenuItemScalarWhereInput[]
-  NOT?: Prisma.MenuItemScalarWhereInput | Prisma.MenuItemScalarWhereInput[]
-  id?: Prisma.StringFilter<"MenuItem"> | string
-  name?: Prisma.StringFilter<"MenuItem"> | string
-  description?: Prisma.StringNullableFilter<"MenuItem"> | string | null
-  price?: Prisma.DecimalFilter<"MenuItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: Prisma.StringNullableFilter<"MenuItem"> | string | null
-  isAvailable?: Prisma.BoolFilter<"MenuItem"> | boolean
-  categoryId?: Prisma.StringFilter<"MenuItem"> | string
-  createdAt?: Prisma.DateTimeFilter<"MenuItem"> | Date | string
-}
-
 export type MenuItemCreateWithoutOrderItemsInput = {
   id?: string
   name: string
   description?: string | null
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: string | null
+  imageUrl?: string | null
+  imagePublicId?: string | null
+  category: string
+  preparationTime?: number
   isAvailable?: boolean
   createdAt?: Date | string
-  category: Prisma.CategoryCreateNestedOneWithoutMenuItemsInput
 }
 
 export type MenuItemUncheckedCreateWithoutOrderItemsInput = {
@@ -585,9 +529,11 @@ export type MenuItemUncheckedCreateWithoutOrderItemsInput = {
   name: string
   description?: string | null
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: string | null
+  imageUrl?: string | null
+  imagePublicId?: string | null
+  category: string
+  preparationTime?: number
   isAvailable?: boolean
-  categoryId: string
   createdAt?: Date | string
 }
 
@@ -612,10 +558,12 @@ export type MenuItemUpdateWithoutOrderItemsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  category?: Prisma.CategoryUpdateOneRequiredWithoutMenuItemsNestedInput
 }
 
 export type MenuItemUncheckedUpdateWithoutOrderItemsInput = {
@@ -623,50 +571,10 @@ export type MenuItemUncheckedUpdateWithoutOrderItemsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type MenuItemCreateManyCategoryInput = {
-  id?: string
-  name: string
-  description?: string | null
-  price: runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: string | null
-  isAvailable?: boolean
-  createdAt?: Date | string
-}
-
-export type MenuItemUpdateWithoutCategoryInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  orderItems?: Prisma.OrderItemUpdateManyWithoutMenuItemNestedInput
-}
-
-export type MenuItemUncheckedUpdateWithoutCategoryInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutMenuItemNestedInput
-}
-
-export type MenuItemUncheckedUpdateManyWithoutCategoryInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.StringFieldUpdateOperationsInput | string
+  preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -707,11 +615,12 @@ export type MenuItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   name?: boolean
   description?: boolean
   price?: boolean
-  image?: boolean
+  imageUrl?: boolean
+  imagePublicId?: boolean
+  category?: boolean
+  preparationTime?: boolean
   isAvailable?: boolean
-  categoryId?: boolean
   createdAt?: boolean
-  category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
   orderItems?: boolean | Prisma.MenuItem$orderItemsArgs<ExtArgs>
   _count?: boolean | Prisma.MenuItemCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["menuItem"]>
@@ -721,11 +630,12 @@ export type MenuItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   name?: boolean
   description?: boolean
   price?: boolean
-  image?: boolean
+  imageUrl?: boolean
+  imagePublicId?: boolean
+  category?: boolean
+  preparationTime?: boolean
   isAvailable?: boolean
-  categoryId?: boolean
   createdAt?: boolean
-  category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["menuItem"]>
 
 export type MenuItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -733,11 +643,12 @@ export type MenuItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   name?: boolean
   description?: boolean
   price?: boolean
-  image?: boolean
+  imageUrl?: boolean
+  imagePublicId?: boolean
+  category?: boolean
+  preparationTime?: boolean
   isAvailable?: boolean
-  categoryId?: boolean
   createdAt?: boolean
-  category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["menuItem"]>
 
 export type MenuItemSelectScalar = {
@@ -745,29 +656,25 @@ export type MenuItemSelectScalar = {
   name?: boolean
   description?: boolean
   price?: boolean
-  image?: boolean
+  imageUrl?: boolean
+  imagePublicId?: boolean
+  category?: boolean
+  preparationTime?: boolean
   isAvailable?: boolean
-  categoryId?: boolean
   createdAt?: boolean
 }
 
-export type MenuItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "price" | "image" | "isAvailable" | "categoryId" | "createdAt", ExtArgs["result"]["menuItem"]>
+export type MenuItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "price" | "imageUrl" | "imagePublicId" | "category" | "preparationTime" | "isAvailable" | "createdAt", ExtArgs["result"]["menuItem"]>
 export type MenuItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
   orderItems?: boolean | Prisma.MenuItem$orderItemsArgs<ExtArgs>
   _count?: boolean | Prisma.MenuItemCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type MenuItemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
-}
-export type MenuItemIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
-}
+export type MenuItemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type MenuItemIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $MenuItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "MenuItem"
   objects: {
-    category: Prisma.$CategoryPayload<ExtArgs>
     orderItems: Prisma.$OrderItemPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -775,9 +682,11 @@ export type $MenuItemPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     name: string
     description: string | null
     price: runtime.Decimal
-    image: string | null
+    imageUrl: string | null
+    imagePublicId: string | null
+    category: string
+    preparationTime: number
     isAvailable: boolean
-    categoryId: string
     createdAt: Date
   }, ExtArgs["result"]["menuItem"]>
   composites: {}
@@ -1173,7 +1082,6 @@ readonly fields: MenuItemFieldRefs;
  */
 export interface Prisma__MenuItemClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  category<T extends Prisma.CategoryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CategoryDefaultArgs<ExtArgs>>): Prisma.Prisma__CategoryClient<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   orderItems<T extends Prisma.MenuItem$orderItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MenuItem$orderItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1208,9 +1116,11 @@ export interface MenuItemFieldRefs {
   readonly name: Prisma.FieldRef<"MenuItem", 'String'>
   readonly description: Prisma.FieldRef<"MenuItem", 'String'>
   readonly price: Prisma.FieldRef<"MenuItem", 'Decimal'>
-  readonly image: Prisma.FieldRef<"MenuItem", 'String'>
+  readonly imageUrl: Prisma.FieldRef<"MenuItem", 'String'>
+  readonly imagePublicId: Prisma.FieldRef<"MenuItem", 'String'>
+  readonly category: Prisma.FieldRef<"MenuItem", 'String'>
+  readonly preparationTime: Prisma.FieldRef<"MenuItem", 'Int'>
   readonly isAvailable: Prisma.FieldRef<"MenuItem", 'Boolean'>
-  readonly categoryId: Prisma.FieldRef<"MenuItem", 'String'>
   readonly createdAt: Prisma.FieldRef<"MenuItem", 'DateTime'>
 }
     
@@ -1466,10 +1376,6 @@ export type MenuItemCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    */
   data: Prisma.MenuItemCreateManyInput | Prisma.MenuItemCreateManyInput[]
   skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.MenuItemIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1540,10 +1446,6 @@ export type MenuItemUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    * Limit how many MenuItems to update.
    */
   limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.MenuItemIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

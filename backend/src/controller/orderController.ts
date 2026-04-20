@@ -52,18 +52,9 @@ const validateOrderPayload = async (items: any[]) => {
       );
     }
 
-    if (
-      item.price === undefined ||
-      item.price === null ||
-      Number(item.price) <= 0
-    ) {
-      throw new AppError("Each item must include a valid price", 400);
-    }
-
     return {
       menuItemId: item.menuItemId,
       quantity: item.quantity,
-      price: new Prisma.Decimal(item.price.toString()),
     };
   });
 
@@ -114,8 +105,6 @@ export const getOrders = catchAsync(async (req, res) => {
 
   res.status(200).json({
     status: "success",
-    results: orders.length,
-    page,
     totalPages: Math.ceil(total / limit),
     data: { orders },
   });
@@ -224,6 +213,39 @@ export const createOrReuseOrderSession = catchAsync(async (req, res, next) => {
   });
 });
 
+export const getOrdersBySession = catchAsync(async (req, res, next) => {
+  const { sessionToken } = req.query;
+
+  if (!sessionToken || typeof sessionToken !== "string") {
+    return next(new AppError("sessionToken is required", 400));
+  }
+
+  const session = await prisma.orderSession.findUnique({
+    where: { sessionToken },
+  });
+
+  if (!session) {
+    return next(new AppError("Session not found", 404));
+  }
+
+  const orders = await prisma.order.findMany({
+    where: { orderSessionId: session.id },
+    include: {
+      items: {
+        include: {
+          menuItem: true,
+        },
+      },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  res.status(200).json({
+    status: "success",
+    data: { orders },
+  });
+});
+
 export const createOrder = catchAsync(async (req, res, next) => {
   const { tableId, items, sessionToken } = req.body;
   if (!tableId || typeof tableId !== "string") {
@@ -307,13 +329,6 @@ export const createOrder = catchAsync(async (req, res, next) => {
     }
 
     const expectedPrice = menuItem.price;
-    if (!expectedPrice.equals(item.price)) {
-      throw new AppError(
-        `Pricing mismatch for ${menuItem.name}. Client price must match current menu price.`,
-        400,
-      );
-    }
-
     const lineTotal = expectedPrice.mul(item.quantity);
     totalAmount = totalAmount.add(lineTotal);
 

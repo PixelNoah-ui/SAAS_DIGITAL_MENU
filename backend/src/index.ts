@@ -12,6 +12,7 @@ import authRouter from "./router/authRouter.js";
 import orderRouter from "./router/orderRouter.js";
 import menuRouter from "./router/menuRouter.js";
 import managerRouter from "./router/managerRouter.js";
+import restaurantRouter from "./router/restaurantRouter.js";
 import { globalErrorHandler } from "./controller/ErrorController.js";
 
 const app = express();
@@ -42,6 +43,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/menu-items", menuRouter);
 app.use("/api/managers", managerRouter);
+app.use("/api/restaurant", restaurantRouter);
 
 const publicDir = path.join(process.cwd(), "src", "public");
 app.use(express.static(publicDir));
