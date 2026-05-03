@@ -78,10 +78,13 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const TableScalarFieldEnum = {
   id: 'id',
-  name: 'name',
+  tableNumber: 'tableNumber',
+  capacity: 'capacity',
+  status: 'status',
   qrToken: 'qrToken',
   isActive: 'isActive',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type TableScalarFieldEnum = (typeof TableScalarFieldEnum)[keyof typeof TableScalarFieldEnum]
@@ -97,7 +100,8 @@ export const MenuItemScalarFieldEnum = {
   category: 'category',
   preparationTime: 'preparationTime',
   isAvailable: 'isAvailable',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type MenuItemScalarFieldEnum = (typeof MenuItemScalarFieldEnum)[keyof typeof MenuItemScalarFieldEnum]
@@ -163,7 +167,6 @@ export const RestaurantInfoScalarFieldEnum = {
   name: 'name',
   phone: 'phone',
   address: 'address',
-  room: 'room',
   telegramUsername: 'telegramUsername',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

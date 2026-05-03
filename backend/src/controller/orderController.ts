@@ -1,14 +1,42 @@
-import { AppError } from "../utils/AppError.js";
-import { catchAsync } from "../utils/catchAsync.js";
-import { prisma } from "../lib/Prisma.js";
 import { Prisma } from "../generated/prisma/client.js";
 import { OrderStatus } from "../generated/prisma/enums.js";
-import dotenv from "dotenv";
-dotenv.config();
+import { prisma } from "../lib/Prisma.js";
+import { AppError } from "../utils/AppError.js";
+import { catchAsync } from "../utils/catchAsync.js";
 
 const SESSION_EXPIRE_MINUTES = Number(process.env.SESSION_EXPIRE_MINUTES ?? 15);
 const ORDER_LIMIT_PER_WINDOW = Number(process.env.ORDER_LIMIT_PER_WINDOW ?? 3);
 const ORDER_WINDOW_MINUTES = Number(process.env.ORDER_WINDOW_MINUTES ?? 10);
+
+// ============================================
+// Order Formatter - Transform Prisma to API
+// ============================================
+
+interface OrderItem {
+  id: string;
+  menuItemId: string;
+  quantity: number;
+  price: any;
+  menuItem?: {
+    name: string | null;
+  } | null;
+}
+
+interface Order {
+  id: string;
+  tableId: string;
+  orderSessionId: string | null;
+  status: string;
+  totalAmount: any;
+  createdAt: Date;
+  updatedAt: Date;
+  table?: {
+    id: string;
+    tableNumber: number;
+    name: string | null;
+  } | null;
+  items?: OrderItem[];
+}
 
 const getActiveSession = async (tableId: string) => {
   const now = new Date();
@@ -83,33 +111,77 @@ const validateOrderStatus = (status?: string) => {
 export const getOrders = catchAsync(async (req, res) => {
   const page = Math.max(1, Number(req.query.page) || 1);
   const limit = 9;
-  const status = parseOrderStatus(req.query.status as string | undefined);
+
+  const rawStatus = req.query.status as string | undefined;
 
   const where: any = {};
-  if (status) {
-    where.status = validateOrderStatus(status);
+
+  // ✅ handle "all"
+  if (rawStatus && rawStatus.toLowerCase() !== "all") {
+    const normalized = rawStatus.toUpperCase();
+
+    const validStatus = validateOrderStatus(normalized);
+
+    if (validStatus) {
+      where.status = validStatus;
+    }
   }
 
   const total = await prisma.order.count({ where });
+
   const orders = await prisma.order.findMany({
     where,
     include: {
       table: true,
-      orderSession: true,
-      items: true,
+      items: {
+        include: {
+          menuItem: true,
+        },
+      },
     },
     orderBy: { createdAt: "desc" },
     skip: (page - 1) * limit,
     take: limit,
   });
 
+  const formattedOrders = orders.map((order) => ({
+    id: order.id,
+    tableId: order.tableId,
+
+    // ✅ matches frontend: string
+    tableName: `Table ${order.table?.tableNumber ?? "Unknown"}`,
+
+    status: order.status,
+
+    totalAmount: Number(order.totalAmount),
+
+    createdAt: order.createdAt.toISOString(),
+    updatedAt: order.updatedAt.toISOString(),
+
+    itemCount: order.items?.reduce((sum, item) => sum + item.quantity, 0) || 0,
+
+    items: (order.items || []).map((item) => ({
+      id: item.id,
+      quantity: item.quantity,
+      price: Number(item.price),
+
+      menuItem: {
+        name: item.menuItem?.name || "Unknown Item",
+      },
+    })),
+  }));
+
   res.status(200).json({
-    status: "success",
-    totalPages: Math.ceil(total / limit),
-    data: { orders },
+    success: true,
+    data: {
+      orders: formattedOrders,
+      pagination: {
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
+    },
   });
 });
-
 export const getOrder = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
@@ -214,22 +286,13 @@ export const createOrReuseOrderSession = catchAsync(async (req, res, next) => {
 });
 
 export const getOrdersBySession = catchAsync(async (req, res, next) => {
-  const { sessionToken } = req.query;
-
-  if (!sessionToken || typeof sessionToken !== "string") {
-    return next(new AppError("sessionToken is required", 400));
-  }
-
-  const session = await prisma.orderSession.findUnique({
-    where: { sessionToken },
-  });
-
-  if (!session) {
-    return next(new AppError("Session not found", 404));
+  // Use session from cookie (set by middleware)
+  if (!req.session) {
+    return next(new AppError("No active session. Please scan QR code.", 401));
   }
 
   const orders = await prisma.order.findMany({
-    where: { orderSessionId: session.id },
+    where: { orderSessionId: req.session.id },
     include: {
       items: {
         include: {

@@ -29,7 +29,6 @@ export type RestaurantInfoMinAggregateOutputType = {
   name: string | null
   phone: string | null
   address: string | null
-  room: string | null
   telegramUsername: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -40,7 +39,6 @@ export type RestaurantInfoMaxAggregateOutputType = {
   name: string | null
   phone: string | null
   address: string | null
-  room: string | null
   telegramUsername: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -51,7 +49,6 @@ export type RestaurantInfoCountAggregateOutputType = {
   name: number
   phone: number
   address: number
-  room: number
   telegramUsername: number
   createdAt: number
   updatedAt: number
@@ -64,7 +61,6 @@ export type RestaurantInfoMinAggregateInputType = {
   name?: true
   phone?: true
   address?: true
-  room?: true
   telegramUsername?: true
   createdAt?: true
   updatedAt?: true
@@ -75,7 +71,6 @@ export type RestaurantInfoMaxAggregateInputType = {
   name?: true
   phone?: true
   address?: true
-  room?: true
   telegramUsername?: true
   createdAt?: true
   updatedAt?: true
@@ -86,7 +81,6 @@ export type RestaurantInfoCountAggregateInputType = {
   name?: true
   phone?: true
   address?: true
-  room?: true
   telegramUsername?: true
   createdAt?: true
   updatedAt?: true
@@ -170,7 +164,6 @@ export type RestaurantInfoGroupByOutputType = {
   name: string
   phone: string
   address: string
-  room: string
   telegramUsername: string
   createdAt: Date
   updatedAt: Date
@@ -202,7 +195,6 @@ export type RestaurantInfoWhereInput = {
   name?: Prisma.StringFilter<"RestaurantInfo"> | string
   phone?: Prisma.StringFilter<"RestaurantInfo"> | string
   address?: Prisma.StringFilter<"RestaurantInfo"> | string
-  room?: Prisma.StringFilter<"RestaurantInfo"> | string
   telegramUsername?: Prisma.StringFilter<"RestaurantInfo"> | string
   createdAt?: Prisma.DateTimeFilter<"RestaurantInfo"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RestaurantInfo"> | Date | string
@@ -213,7 +205,6 @@ export type RestaurantInfoOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  room?: Prisma.SortOrder
   telegramUsername?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -227,7 +218,6 @@ export type RestaurantInfoWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"RestaurantInfo"> | string
   phone?: Prisma.StringFilter<"RestaurantInfo"> | string
   address?: Prisma.StringFilter<"RestaurantInfo"> | string
-  room?: Prisma.StringFilter<"RestaurantInfo"> | string
   telegramUsername?: Prisma.StringFilter<"RestaurantInfo"> | string
   createdAt?: Prisma.DateTimeFilter<"RestaurantInfo"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RestaurantInfo"> | Date | string
@@ -238,7 +228,6 @@ export type RestaurantInfoOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  room?: Prisma.SortOrder
   telegramUsername?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -255,7 +244,6 @@ export type RestaurantInfoScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"RestaurantInfo"> | string
   phone?: Prisma.StringWithAggregatesFilter<"RestaurantInfo"> | string
   address?: Prisma.StringWithAggregatesFilter<"RestaurantInfo"> | string
-  room?: Prisma.StringWithAggregatesFilter<"RestaurantInfo"> | string
   telegramUsername?: Prisma.StringWithAggregatesFilter<"RestaurantInfo"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"RestaurantInfo"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"RestaurantInfo"> | Date | string
@@ -266,7 +254,6 @@ export type RestaurantInfoCreateInput = {
   name: string
   phone: string
   address: string
-  room: string
   telegramUsername: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -277,7 +264,6 @@ export type RestaurantInfoUncheckedCreateInput = {
   name: string
   phone: string
   address: string
-  room: string
   telegramUsername: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -288,7 +274,6 @@ export type RestaurantInfoUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  room?: Prisma.StringFieldUpdateOperationsInput | string
   telegramUsername?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -299,7 +284,6 @@ export type RestaurantInfoUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  room?: Prisma.StringFieldUpdateOperationsInput | string
   telegramUsername?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -310,7 +294,6 @@ export type RestaurantInfoCreateManyInput = {
   name: string
   phone: string
   address: string
-  room: string
   telegramUsername: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -321,7 +304,6 @@ export type RestaurantInfoUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  room?: Prisma.StringFieldUpdateOperationsInput | string
   telegramUsername?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -332,7 +314,6 @@ export type RestaurantInfoUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
-  room?: Prisma.StringFieldUpdateOperationsInput | string
   telegramUsername?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -343,7 +324,6 @@ export type RestaurantInfoCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  room?: Prisma.SortOrder
   telegramUsername?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -354,7 +334,6 @@ export type RestaurantInfoMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  room?: Prisma.SortOrder
   telegramUsername?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -365,7 +344,6 @@ export type RestaurantInfoMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  room?: Prisma.SortOrder
   telegramUsername?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -378,7 +356,6 @@ export type RestaurantInfoSelect<ExtArgs extends runtime.Types.Extensions.Intern
   name?: boolean
   phone?: boolean
   address?: boolean
-  room?: boolean
   telegramUsername?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -389,7 +366,6 @@ export type RestaurantInfoSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   name?: boolean
   phone?: boolean
   address?: boolean
-  room?: boolean
   telegramUsername?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -400,7 +376,6 @@ export type RestaurantInfoSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   name?: boolean
   phone?: boolean
   address?: boolean
-  room?: boolean
   telegramUsername?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -411,13 +386,12 @@ export type RestaurantInfoSelectScalar = {
   name?: boolean
   phone?: boolean
   address?: boolean
-  room?: boolean
   telegramUsername?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type RestaurantInfoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "phone" | "address" | "room" | "telegramUsername" | "createdAt" | "updatedAt", ExtArgs["result"]["restaurantInfo"]>
+export type RestaurantInfoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "phone" | "address" | "telegramUsername" | "createdAt" | "updatedAt", ExtArgs["result"]["restaurantInfo"]>
 
 export type $RestaurantInfoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "RestaurantInfo"
@@ -427,7 +401,6 @@ export type $RestaurantInfoPayload<ExtArgs extends runtime.Types.Extensions.Inte
     name: string
     phone: string
     address: string
-    room: string
     telegramUsername: string
     createdAt: Date
     updatedAt: Date
@@ -858,7 +831,6 @@ export interface RestaurantInfoFieldRefs {
   readonly name: Prisma.FieldRef<"RestaurantInfo", 'String'>
   readonly phone: Prisma.FieldRef<"RestaurantInfo", 'String'>
   readonly address: Prisma.FieldRef<"RestaurantInfo", 'String'>
-  readonly room: Prisma.FieldRef<"RestaurantInfo", 'String'>
   readonly telegramUsername: Prisma.FieldRef<"RestaurantInfo", 'String'>
   readonly createdAt: Prisma.FieldRef<"RestaurantInfo", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"RestaurantInfo", 'DateTime'>

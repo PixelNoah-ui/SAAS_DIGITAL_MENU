@@ -84,7 +84,10 @@ export default function SearchFilterLayout({
           }
         />
       </aside>
-      <div className="w-full max-w-7xl space-y-5">
+      <div
+        className={`w-full max-w-7xl space-y-5 group-has-data-pending:animate-pulse`}
+        data-pending={isPending ? "" : undefined}
+      >
         <div className="flex justify-center lg:justify-end">
           <SortFilter
             sort={optimisticFilters.sort}

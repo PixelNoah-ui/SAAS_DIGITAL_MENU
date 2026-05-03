@@ -9,10 +9,13 @@ import rateLimit from "express-rate-limit";
 
 import cookieParser from "cookie-parser";
 import authRouter from "./router/authRouter.js";
+import sessionRouter from "./router/sessionRouter.js";
 import orderRouter from "./router/orderRouter.js";
 import menuRouter from "./router/menuRouter.js";
 import managerRouter from "./router/managerRouter.js";
 import restaurantRouter from "./router/restaurantRouter.js";
+import dashboardRouter from "./router/dashboardRouter.js";
+import tableRouter from "./router/tableRouter.js";
 import { globalErrorHandler } from "./controller/ErrorController.js";
 
 const app = express();
@@ -40,10 +43,13 @@ app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 
 app.use("/api/auth", authRouter);
+app.use("/api/sessions", sessionRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/menu-items", menuRouter);
 app.use("/api/managers", managerRouter);
-app.use("/api/restaurant", restaurantRouter);
+app.use("/api/restaurant-info", restaurantRouter);
+app.use("/api/dashboard", dashboardRouter);
+app.use("/api/tables", tableRouter);
 
 const publicDir = path.join(process.cwd(), "src", "public");
 app.use(express.static(publicDir));

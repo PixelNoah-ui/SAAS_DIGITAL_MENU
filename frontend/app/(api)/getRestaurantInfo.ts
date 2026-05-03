@@ -18,12 +18,15 @@ export interface RestaurantInfoResponse {
 }
 
 export async function getRestaurantInfo(): Promise<RestaurantInfoResponse> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/restaurant`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/restaurant-info`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
     },
-  });
+  );
 
   if (!res.ok) {
     const err = await res.json();

@@ -2,7 +2,7 @@ export interface OrderItem {
   id: string;
   menuItemId: string;
   quantity: number;
-  price: number;
+  price: string;
   menuItem?: {
     name: string;
   };
@@ -10,7 +10,7 @@ export interface OrderItem {
 
 export interface Order {
   id: string;
-  totalAmount: number;
+  totalAmount: string;
   status: string;
   createdAt: string;
   items: OrderItem[];
@@ -42,5 +42,6 @@ export async function getOrdersBySession(
   }
 
   const result = await res.json();
+  console.log("Fetched orders for session:", result);
   return result as Promise<GetOrdersBySessionResponse>;
 }

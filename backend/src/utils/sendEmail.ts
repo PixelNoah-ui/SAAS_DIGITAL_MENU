@@ -4,6 +4,12 @@ interface EmailOptions {
   email: string;
   subject: string;
   html: string;
+  text?: string;
+  attachments?: {
+    filename: string;
+    content: Buffer | string;
+    cid?: string;
+  }[];
 }
 
 const sendEmail = async (options: EmailOptions): Promise<void> => {
@@ -19,10 +25,11 @@ const sendEmail = async (options: EmailOptions): Promise<void> => {
   });
 
   const mailOptions = {
-    from: `Abdu electronics" <${process.env.EMAIL_USERNAME}>`,
+    from: `PixelHotel Digital Menu <${process.env.EMAIL_USERNAME}>`,
     to: options.email,
     subject: options.subject,
     html: options.html,
+    attachments: options.attachments || [],
   };
 
   await transporter.sendMail(mailOptions);

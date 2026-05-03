@@ -7,6 +7,6 @@ export type ProductType = {
   image: string;
   imageUrl?: string;
   time: string;
-  isVegetarian: boolean;
+
   category: string;
 };

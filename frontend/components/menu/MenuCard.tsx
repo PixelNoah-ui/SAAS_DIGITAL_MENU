@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
@@ -19,13 +19,20 @@ interface MenuCardProps {
 }
 
 export default function MenuCard({ menu }: { menu: MenuCardProps }) {
-  const { id, slug, title, description, price, image, time, isVegetarian } =
-    menu;
+  const router = useRouter();
+
+  const { id, slug, title, description, price, image, time } = menu;
 
   const addItem = useCartStore((state) => state.addItem);
 
+  const handleNavigate = () => {
+    if (slug) {
+      router.push(`/menu/${slug}`);
+    }
+  };
+
   const handleAddToCart = (e: React.MouseEvent) => {
-    e.stopPropagation();
+    e.stopPropagation(); // 🔥 prevents redirect
     e.preventDefault();
 
     addItem({
@@ -38,15 +45,12 @@ export default function MenuCard({ menu }: { menu: MenuCardProps }) {
   };
 
   return (
-    <Card className="overflow-hidden rounded-2xl border bg-card shadow-sm hover:shadow-md transition-all duration-300">
+    <Card
+      onClick={handleNavigate}
+      className="cursor-pointer overflow-hidden rounded-none border bg-card shadow-sm hover:shadow-md transition-all duration-300"
+    >
       <div className="relative w-full h-52">
         <Image src={image} alt={title} fill className="object-cover" />
-
-        {isVegetarian && (
-          <Badge className="absolute top-3 left-3 bg-card text-foreground shadow-sm">
-            Vegetarian
-          </Badge>
-        )}
       </div>
 
       <CardContent className="p-5 space-y-4">

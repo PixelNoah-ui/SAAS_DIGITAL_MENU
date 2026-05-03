@@ -1,5 +1,3 @@
-import { CartItem } from "@/types/cart";
-
 export interface OrderItem {
   menuItemId: string;
   quantity: number;

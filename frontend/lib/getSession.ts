@@ -5,7 +5,6 @@ export function getSession() {
 
   const session = JSON.parse(stored);
 
-  // ✅ check expiration
   if (new Date(session.expiresAt) < new Date()) {
     sessionStorage.removeItem("session");
     return null;

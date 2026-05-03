@@ -47,6 +47,7 @@ export type MenuItemMinAggregateOutputType = {
   preparationTime: number | null
   isAvailable: boolean | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type MenuItemMaxAggregateOutputType = {
@@ -60,6 +61,7 @@ export type MenuItemMaxAggregateOutputType = {
   preparationTime: number | null
   isAvailable: boolean | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type MenuItemCountAggregateOutputType = {
@@ -73,6 +75,7 @@ export type MenuItemCountAggregateOutputType = {
   preparationTime: number
   isAvailable: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -98,6 +101,7 @@ export type MenuItemMinAggregateInputType = {
   preparationTime?: true
   isAvailable?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type MenuItemMaxAggregateInputType = {
@@ -111,6 +115,7 @@ export type MenuItemMaxAggregateInputType = {
   preparationTime?: true
   isAvailable?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type MenuItemCountAggregateInputType = {
@@ -124,6 +129,7 @@ export type MenuItemCountAggregateInputType = {
   preparationTime?: true
   isAvailable?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -224,6 +230,7 @@ export type MenuItemGroupByOutputType = {
   preparationTime: number
   isAvailable: boolean
   createdAt: Date
+  updatedAt: Date
   _count: MenuItemCountAggregateOutputType | null
   _avg: MenuItemAvgAggregateOutputType | null
   _sum: MenuItemSumAggregateOutputType | null
@@ -260,6 +267,7 @@ export type MenuItemWhereInput = {
   preparationTime?: Prisma.IntFilter<"MenuItem"> | number
   isAvailable?: Prisma.BoolFilter<"MenuItem"> | boolean
   createdAt?: Prisma.DateTimeFilter<"MenuItem"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"MenuItem"> | Date | string
   orderItems?: Prisma.OrderItemListRelationFilter
 }
 
@@ -274,6 +282,7 @@ export type MenuItemOrderByWithRelationInput = {
   preparationTime?: Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   orderItems?: Prisma.OrderItemOrderByRelationAggregateInput
 }
 
@@ -291,6 +300,7 @@ export type MenuItemWhereUniqueInput = Prisma.AtLeast<{
   preparationTime?: Prisma.IntFilter<"MenuItem"> | number
   isAvailable?: Prisma.BoolFilter<"MenuItem"> | boolean
   createdAt?: Prisma.DateTimeFilter<"MenuItem"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"MenuItem"> | Date | string
   orderItems?: Prisma.OrderItemListRelationFilter
 }, "id">
 
@@ -305,6 +315,7 @@ export type MenuItemOrderByWithAggregationInput = {
   preparationTime?: Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.MenuItemCountOrderByAggregateInput
   _avg?: Prisma.MenuItemAvgOrderByAggregateInput
   _max?: Prisma.MenuItemMaxOrderByAggregateInput
@@ -326,6 +337,7 @@ export type MenuItemScalarWhereWithAggregatesInput = {
   preparationTime?: Prisma.IntWithAggregatesFilter<"MenuItem"> | number
   isAvailable?: Prisma.BoolWithAggregatesFilter<"MenuItem"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"MenuItem"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"MenuItem"> | Date | string
 }
 
 export type MenuItemCreateInput = {
@@ -339,6 +351,7 @@ export type MenuItemCreateInput = {
   preparationTime?: number
   isAvailable?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
   orderItems?: Prisma.OrderItemCreateNestedManyWithoutMenuItemInput
 }
 
@@ -353,6 +366,7 @@ export type MenuItemUncheckedCreateInput = {
   preparationTime?: number
   isAvailable?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutMenuItemInput
 }
 
@@ -367,6 +381,7 @@ export type MenuItemUpdateInput = {
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItems?: Prisma.OrderItemUpdateManyWithoutMenuItemNestedInput
 }
 
@@ -381,6 +396,7 @@ export type MenuItemUncheckedUpdateInput = {
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutMenuItemNestedInput
 }
 
@@ -395,6 +411,7 @@ export type MenuItemCreateManyInput = {
   preparationTime?: number
   isAvailable?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type MenuItemUpdateManyMutationInput = {
@@ -408,6 +425,7 @@ export type MenuItemUpdateManyMutationInput = {
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MenuItemUncheckedUpdateManyInput = {
@@ -421,6 +439,7 @@ export type MenuItemUncheckedUpdateManyInput = {
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MenuItemCountOrderByAggregateInput = {
@@ -434,6 +453,7 @@ export type MenuItemCountOrderByAggregateInput = {
   preparationTime?: Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type MenuItemAvgOrderByAggregateInput = {
@@ -452,6 +472,7 @@ export type MenuItemMaxOrderByAggregateInput = {
   preparationTime?: Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type MenuItemMinOrderByAggregateInput = {
@@ -465,6 +486,7 @@ export type MenuItemMinOrderByAggregateInput = {
   preparationTime?: Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type MenuItemSumOrderByAggregateInput = {
@@ -487,14 +509,6 @@ export type DecimalFieldUpdateOperationsInput = {
   decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
   multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
-}
-
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
 }
 
 export type MenuItemCreateNestedOneWithoutOrderItemsInput = {
@@ -522,6 +536,7 @@ export type MenuItemCreateWithoutOrderItemsInput = {
   preparationTime?: number
   isAvailable?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type MenuItemUncheckedCreateWithoutOrderItemsInput = {
@@ -535,6 +550,7 @@ export type MenuItemUncheckedCreateWithoutOrderItemsInput = {
   preparationTime?: number
   isAvailable?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type MenuItemCreateOrConnectWithoutOrderItemsInput = {
@@ -564,6 +580,7 @@ export type MenuItemUpdateWithoutOrderItemsInput = {
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MenuItemUncheckedUpdateWithoutOrderItemsInput = {
@@ -577,6 +594,7 @@ export type MenuItemUncheckedUpdateWithoutOrderItemsInput = {
   preparationTime?: Prisma.IntFieldUpdateOperationsInput | number
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -621,6 +639,7 @@ export type MenuItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   preparationTime?: boolean
   isAvailable?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   orderItems?: boolean | Prisma.MenuItem$orderItemsArgs<ExtArgs>
   _count?: boolean | Prisma.MenuItemCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["menuItem"]>
@@ -636,6 +655,7 @@ export type MenuItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   preparationTime?: boolean
   isAvailable?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["menuItem"]>
 
 export type MenuItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -649,6 +669,7 @@ export type MenuItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   preparationTime?: boolean
   isAvailable?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["menuItem"]>
 
 export type MenuItemSelectScalar = {
@@ -662,9 +683,10 @@ export type MenuItemSelectScalar = {
   preparationTime?: boolean
   isAvailable?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type MenuItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "price" | "imageUrl" | "imagePublicId" | "category" | "preparationTime" | "isAvailable" | "createdAt", ExtArgs["result"]["menuItem"]>
+export type MenuItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "price" | "imageUrl" | "imagePublicId" | "category" | "preparationTime" | "isAvailable" | "createdAt" | "updatedAt", ExtArgs["result"]["menuItem"]>
 export type MenuItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   orderItems?: boolean | Prisma.MenuItem$orderItemsArgs<ExtArgs>
   _count?: boolean | Prisma.MenuItemCountOutputTypeDefaultArgs<ExtArgs>
@@ -688,6 +710,7 @@ export type $MenuItemPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     preparationTime: number
     isAvailable: boolean
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["menuItem"]>
   composites: {}
 }
@@ -1122,6 +1145,7 @@ export interface MenuItemFieldRefs {
   readonly preparationTime: Prisma.FieldRef<"MenuItem", 'Int'>
   readonly isAvailable: Prisma.FieldRef<"MenuItem", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"MenuItem", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"MenuItem", 'DateTime'>
 }
     
 

@@ -20,58 +20,98 @@ export type TableModel = runtime.Types.Result.DefaultSelection<Prisma.$TablePayl
 
 export type AggregateTable = {
   _count: TableCountAggregateOutputType | null
+  _avg: TableAvgAggregateOutputType | null
+  _sum: TableSumAggregateOutputType | null
   _min: TableMinAggregateOutputType | null
   _max: TableMaxAggregateOutputType | null
 }
 
+export type TableAvgAggregateOutputType = {
+  tableNumber: number | null
+  capacity: number | null
+}
+
+export type TableSumAggregateOutputType = {
+  tableNumber: number | null
+  capacity: number | null
+}
+
 export type TableMinAggregateOutputType = {
   id: string | null
-  name: string | null
+  tableNumber: number | null
+  capacity: number | null
+  status: $Enums.TableStatus | null
   qrToken: string | null
   isActive: boolean | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type TableMaxAggregateOutputType = {
   id: string | null
-  name: string | null
+  tableNumber: number | null
+  capacity: number | null
+  status: $Enums.TableStatus | null
   qrToken: string | null
   isActive: boolean | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type TableCountAggregateOutputType = {
   id: number
-  name: number
+  tableNumber: number
+  capacity: number
+  status: number
   qrToken: number
   isActive: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
 
+export type TableAvgAggregateInputType = {
+  tableNumber?: true
+  capacity?: true
+}
+
+export type TableSumAggregateInputType = {
+  tableNumber?: true
+  capacity?: true
+}
+
 export type TableMinAggregateInputType = {
   id?: true
-  name?: true
+  tableNumber?: true
+  capacity?: true
+  status?: true
   qrToken?: true
   isActive?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type TableMaxAggregateInputType = {
   id?: true
-  name?: true
+  tableNumber?: true
+  capacity?: true
+  status?: true
   qrToken?: true
   isActive?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type TableCountAggregateInputType = {
   id?: true
-  name?: true
+  tableNumber?: true
+  capacity?: true
+  status?: true
   qrToken?: true
   isActive?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -113,6 +153,18 @@ export type TableAggregateArgs<ExtArgs extends runtime.Types.Extensions.Internal
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: TableAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: TableSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: TableMinAggregateInputType
@@ -143,17 +195,24 @@ export type TableGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   _count?: TableCountAggregateInputType | true
+  _avg?: TableAvgAggregateInputType
+  _sum?: TableSumAggregateInputType
   _min?: TableMinAggregateInputType
   _max?: TableMaxAggregateInputType
 }
 
 export type TableGroupByOutputType = {
   id: string
-  name: string
+  tableNumber: number
+  capacity: number
+  status: $Enums.TableStatus
   qrToken: string
   isActive: boolean
   createdAt: Date
+  updatedAt: Date
   _count: TableCountAggregateOutputType | null
+  _avg: TableAvgAggregateOutputType | null
+  _sum: TableSumAggregateOutputType | null
   _min: TableMinAggregateOutputType | null
   _max: TableMaxAggregateOutputType | null
 }
@@ -178,46 +237,60 @@ export type TableWhereInput = {
   OR?: Prisma.TableWhereInput[]
   NOT?: Prisma.TableWhereInput | Prisma.TableWhereInput[]
   id?: Prisma.StringFilter<"Table"> | string
-  name?: Prisma.StringFilter<"Table"> | string
+  tableNumber?: Prisma.IntFilter<"Table"> | number
+  capacity?: Prisma.IntFilter<"Table"> | number
+  status?: Prisma.EnumTableStatusFilter<"Table"> | $Enums.TableStatus
   qrToken?: Prisma.StringFilter<"Table"> | string
   isActive?: Prisma.BoolFilter<"Table"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Table"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Table"> | Date | string
   orders?: Prisma.OrderListRelationFilter
   orderSessions?: Prisma.OrderSessionListRelationFilter
 }
 
 export type TableOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  tableNumber?: Prisma.SortOrder
+  capacity?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   qrToken?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   orders?: Prisma.OrderOrderByRelationAggregateInput
   orderSessions?: Prisma.OrderSessionOrderByRelationAggregateInput
 }
 
 export type TableWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  tableNumber?: number
   qrToken?: string
   AND?: Prisma.TableWhereInput | Prisma.TableWhereInput[]
   OR?: Prisma.TableWhereInput[]
   NOT?: Prisma.TableWhereInput | Prisma.TableWhereInput[]
-  name?: Prisma.StringFilter<"Table"> | string
+  capacity?: Prisma.IntFilter<"Table"> | number
+  status?: Prisma.EnumTableStatusFilter<"Table"> | $Enums.TableStatus
   isActive?: Prisma.BoolFilter<"Table"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Table"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Table"> | Date | string
   orders?: Prisma.OrderListRelationFilter
   orderSessions?: Prisma.OrderSessionListRelationFilter
-}, "id" | "qrToken">
+}, "id" | "qrToken" | "tableNumber">
 
 export type TableOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  tableNumber?: Prisma.SortOrder
+  capacity?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   qrToken?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.TableCountOrderByAggregateInput
+  _avg?: Prisma.TableAvgOrderByAggregateInput
   _max?: Prisma.TableMaxOrderByAggregateInput
   _min?: Prisma.TableMinOrderByAggregateInput
+  _sum?: Prisma.TableSumOrderByAggregateInput
 }
 
 export type TableScalarWhereWithAggregatesInput = {
@@ -225,98 +298,141 @@ export type TableScalarWhereWithAggregatesInput = {
   OR?: Prisma.TableScalarWhereWithAggregatesInput[]
   NOT?: Prisma.TableScalarWhereWithAggregatesInput | Prisma.TableScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Table"> | string
-  name?: Prisma.StringWithAggregatesFilter<"Table"> | string
+  tableNumber?: Prisma.IntWithAggregatesFilter<"Table"> | number
+  capacity?: Prisma.IntWithAggregatesFilter<"Table"> | number
+  status?: Prisma.EnumTableStatusWithAggregatesFilter<"Table"> | $Enums.TableStatus
   qrToken?: Prisma.StringWithAggregatesFilter<"Table"> | string
   isActive?: Prisma.BoolWithAggregatesFilter<"Table"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Table"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Table"> | Date | string
 }
 
 export type TableCreateInput = {
   id?: string
-  name: string
+  tableNumber: number
+  capacity: number
+  status?: $Enums.TableStatus
   qrToken: string
   isActive?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
   orders?: Prisma.OrderCreateNestedManyWithoutTableInput
   orderSessions?: Prisma.OrderSessionCreateNestedManyWithoutTableInput
 }
 
 export type TableUncheckedCreateInput = {
   id?: string
-  name: string
+  tableNumber: number
+  capacity: number
+  status?: $Enums.TableStatus
   qrToken: string
   isActive?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutTableInput
   orderSessions?: Prisma.OrderSessionUncheckedCreateNestedManyWithoutTableInput
 }
 
 export type TableUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  tableNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  capacity?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumTableStatusFieldUpdateOperationsInput | $Enums.TableStatus
   qrToken?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUpdateManyWithoutTableNestedInput
   orderSessions?: Prisma.OrderSessionUpdateManyWithoutTableNestedInput
 }
 
 export type TableUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  tableNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  capacity?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumTableStatusFieldUpdateOperationsInput | $Enums.TableStatus
   qrToken?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUncheckedUpdateManyWithoutTableNestedInput
   orderSessions?: Prisma.OrderSessionUncheckedUpdateManyWithoutTableNestedInput
 }
 
 export type TableCreateManyInput = {
   id?: string
-  name: string
+  tableNumber: number
+  capacity: number
+  status?: $Enums.TableStatus
   qrToken: string
   isActive?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type TableUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  tableNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  capacity?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumTableStatusFieldUpdateOperationsInput | $Enums.TableStatus
   qrToken?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TableUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  tableNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  capacity?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumTableStatusFieldUpdateOperationsInput | $Enums.TableStatus
   qrToken?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TableCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  tableNumber?: Prisma.SortOrder
+  capacity?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   qrToken?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+}
+
+export type TableAvgOrderByAggregateInput = {
+  tableNumber?: Prisma.SortOrder
+  capacity?: Prisma.SortOrder
 }
 
 export type TableMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  tableNumber?: Prisma.SortOrder
+  capacity?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   qrToken?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type TableMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  tableNumber?: Prisma.SortOrder
+  capacity?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   qrToken?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+}
+
+export type TableSumOrderByAggregateInput = {
+  tableNumber?: Prisma.SortOrder
+  capacity?: Prisma.SortOrder
 }
 
 export type TableScalarRelationFilter = {
@@ -326,6 +442,18 @@ export type TableScalarRelationFilter = {
 
 export type StringFieldUpdateOperationsInput = {
   set?: string
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type EnumTableStatusFieldUpdateOperationsInput = {
+  set?: $Enums.TableStatus
 }
 
 export type BoolFieldUpdateOperationsInput = {
@@ -366,19 +494,25 @@ export type TableUpdateOneRequiredWithoutOrderSessionsNestedInput = {
 
 export type TableCreateWithoutOrdersInput = {
   id?: string
-  name: string
+  tableNumber: number
+  capacity: number
+  status?: $Enums.TableStatus
   qrToken: string
   isActive?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
   orderSessions?: Prisma.OrderSessionCreateNestedManyWithoutTableInput
 }
 
 export type TableUncheckedCreateWithoutOrdersInput = {
   id?: string
-  name: string
+  tableNumber: number
+  capacity: number
+  status?: $Enums.TableStatus
   qrToken: string
   isActive?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
   orderSessions?: Prisma.OrderSessionUncheckedCreateNestedManyWithoutTableInput
 }
 
@@ -400,37 +534,49 @@ export type TableUpdateToOneWithWhereWithoutOrdersInput = {
 
 export type TableUpdateWithoutOrdersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  tableNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  capacity?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumTableStatusFieldUpdateOperationsInput | $Enums.TableStatus
   qrToken?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderSessions?: Prisma.OrderSessionUpdateManyWithoutTableNestedInput
 }
 
 export type TableUncheckedUpdateWithoutOrdersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  tableNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  capacity?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumTableStatusFieldUpdateOperationsInput | $Enums.TableStatus
   qrToken?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderSessions?: Prisma.OrderSessionUncheckedUpdateManyWithoutTableNestedInput
 }
 
 export type TableCreateWithoutOrderSessionsInput = {
   id?: string
-  name: string
+  tableNumber: number
+  capacity: number
+  status?: $Enums.TableStatus
   qrToken: string
   isActive?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
   orders?: Prisma.OrderCreateNestedManyWithoutTableInput
 }
 
 export type TableUncheckedCreateWithoutOrderSessionsInput = {
   id?: string
-  name: string
+  tableNumber: number
+  capacity: number
+  status?: $Enums.TableStatus
   qrToken: string
   isActive?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutTableInput
 }
 
@@ -452,19 +598,25 @@ export type TableUpdateToOneWithWhereWithoutOrderSessionsInput = {
 
 export type TableUpdateWithoutOrderSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  tableNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  capacity?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumTableStatusFieldUpdateOperationsInput | $Enums.TableStatus
   qrToken?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUpdateManyWithoutTableNestedInput
 }
 
 export type TableUncheckedUpdateWithoutOrderSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  tableNumber?: Prisma.IntFieldUpdateOperationsInput | number
+  capacity?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumTableStatusFieldUpdateOperationsInput | $Enums.TableStatus
   qrToken?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUncheckedUpdateManyWithoutTableNestedInput
 }
 
@@ -510,10 +662,13 @@ export type TableCountOutputTypeCountOrderSessionsArgs<ExtArgs extends runtime.T
 
 export type TableSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
+  tableNumber?: boolean
+  capacity?: boolean
+  status?: boolean
   qrToken?: boolean
   isActive?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   orders?: boolean | Prisma.Table$ordersArgs<ExtArgs>
   orderSessions?: boolean | Prisma.Table$orderSessionsArgs<ExtArgs>
   _count?: boolean | Prisma.TableCountOutputTypeDefaultArgs<ExtArgs>
@@ -521,29 +676,38 @@ export type TableSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 
 export type TableSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
+  tableNumber?: boolean
+  capacity?: boolean
+  status?: boolean
   qrToken?: boolean
   isActive?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["table"]>
 
 export type TableSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
+  tableNumber?: boolean
+  capacity?: boolean
+  status?: boolean
   qrToken?: boolean
   isActive?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["table"]>
 
 export type TableSelectScalar = {
   id?: boolean
-  name?: boolean
+  tableNumber?: boolean
+  capacity?: boolean
+  status?: boolean
   qrToken?: boolean
   isActive?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type TableOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "qrToken" | "isActive" | "createdAt", ExtArgs["result"]["table"]>
+export type TableOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tableNumber" | "capacity" | "status" | "qrToken" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["table"]>
 export type TableInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   orders?: boolean | Prisma.Table$ordersArgs<ExtArgs>
   orderSessions?: boolean | Prisma.Table$orderSessionsArgs<ExtArgs>
@@ -560,10 +724,13 @@ export type $TablePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    name: string
+    tableNumber: number
+    capacity: number
+    status: $Enums.TableStatus
     qrToken: string
     isActive: boolean
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["table"]>
   composites: {}
 }
@@ -990,10 +1157,13 @@ export interface Prisma__TableClient<T, Null = never, ExtArgs extends runtime.Ty
  */
 export interface TableFieldRefs {
   readonly id: Prisma.FieldRef<"Table", 'String'>
-  readonly name: Prisma.FieldRef<"Table", 'String'>
+  readonly tableNumber: Prisma.FieldRef<"Table", 'Int'>
+  readonly capacity: Prisma.FieldRef<"Table", 'Int'>
+  readonly status: Prisma.FieldRef<"Table", 'TableStatus'>
   readonly qrToken: Prisma.FieldRef<"Table", 'String'>
   readonly isActive: Prisma.FieldRef<"Table", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Table", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Table", 'DateTime'>
 }
     
 

@@ -11,7 +11,7 @@ export interface SessionResponse {
 }
 
 export async function createSession(tableId: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/session`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/sessions`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

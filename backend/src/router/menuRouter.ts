@@ -5,9 +5,9 @@ import { upload, processProductImage } from "../middleware/uploadImages.js";
 import {
   createMenuItem,
   deleteMenuItem,
+  getAdminMenus,
   getMenuItem,
   getMenuItems,
-  getCategories,
   updateMenuItem,
 } from "../controller/menuController.js";
 
@@ -23,6 +23,7 @@ router
     processProductImage,
     createMenuItem,
   );
+router.get("/getAdminMenus", getAdminMenus);
 router
   .route("/:id")
   .get(getMenuItem)

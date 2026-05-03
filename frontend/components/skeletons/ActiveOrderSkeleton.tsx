@@ -4,61 +4,54 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function ActiveOrderSkeleton() {
   return (
-    <div className="border-t border-muted-foreground px-3 py-5">
-      {/* Header */}
+    <div className="space-y-8 animate-pulse">
+      {/* HEADER SECTION */}
       <div className="flex justify-between items-start">
-        <div>
-          <Skeleton className="h-6 w-32 mb-2" />
-          <Skeleton className="h-4 w-24" />
+        <div className="space-y-2">
+          <Skeleton className="h-5 w-40" />
+          <Skeleton className="h-4 w-52" />
         </div>
-        <div className="text-right">
-          <Skeleton className="h-6 w-16 ml-auto mb-2" />
-          <Skeleton className="h-4 w-12 ml-auto" />
+
+        <div className="text-right space-y-2">
+          <Skeleton className="h-5 w-24 ml-auto" />
+          <Skeleton className="h-4 w-20 ml-auto" />
         </div>
       </div>
 
-      {/* Steps */}
+      {/* STEPS */}
       <div className="flex items-center justify-between mt-8">
-        {/* Step 1 */}
-        <div className="flex flex-col items-center text-center">
-          <Skeleton className="w-12 h-12 rounded-full" />
-          <Skeleton className="h-4 w-12 mt-2" />
-          <Skeleton className="h-3 w-16 mt-1" />
-        </div>
-
-        {/* Step 2 */}
-        <div className="flex flex-col items-center text-center">
-          <Skeleton className="w-12 h-12 rounded-full" />
-          <Skeleton className="h-4 w-14 mt-2" />
-          <Skeleton className="h-3 w-16 mt-1" />
-        </div>
-
-        {/* Step 3 */}
-        <div className="flex flex-col items-center text-center">
-          <Skeleton className="w-12 h-12 rounded-full" />
-          <Skeleton className="h-4 w-16 mt-2" />
-        </div>
-
-        {/* Step 4 */}
-        <div className="flex flex-col items-center text-center">
-          <Skeleton className="w-12 h-12 rounded-full" />
-          <Skeleton className="h-4 w-16 mt-2" />
-        </div>
+        <StepSkeleton />
+        <StepSkeleton />
+        <StepSkeleton />
+        <StepSkeleton />
       </div>
 
-      {/* Divider */}
-      <div className="border-t border-border my-6" />
+      {/* DIVIDER */}
+      <Skeleton className="h-px w-full" />
 
-      {/* Order Details */}
-      <div>
-        <Skeleton className="h-4 w-32 mb-2" />
-        <Skeleton className="h-4 w-48" />
+      {/* ORDER DETAILS TITLE */}
+      <Skeleton className="h-4 w-40" />
+
+      {/* ITEMS */}
+      <div className="space-y-3">
+        <Skeleton className="h-4 w-3/4" />
+        <Skeleton className="h-4 w-2/3" />
+        <Skeleton className="h-4 w-1/2" />
       </div>
 
-      {/* Help Button */}
-      <div className="mt-6">
-        <Skeleton className="h-10 w-full" />
-      </div>
+      {/* HELP BUTTON */}
+      <Skeleton className="h-10 w-full rounded-md" />
+    </div>
+  );
+}
+
+/* STEP SKELETON */
+function StepSkeleton() {
+  return (
+    <div className="flex flex-col items-center space-y-2">
+      <Skeleton className="h-12 w-12 rounded-full" />
+      <Skeleton className="h-3 w-16" />
+      <Skeleton className="h-2 w-12" />
     </div>
   );
 }

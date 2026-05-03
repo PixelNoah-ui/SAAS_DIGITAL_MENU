@@ -1,24 +1,23 @@
 "use client";
 
-import { createSession } from "@/app/(api)/CreateSession";
-import { useMutation } from "@tanstack/react-query";
+import { createSession, getCurrentSession } from "@/app/(api)/session";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export function useCreateSession() {
   return useMutation({
-    mutationFn: (tableId: string) => createSession(tableId),
-
-    onSuccess: (data, tableId) => {
-      const sessionData = {
-        sessionToken: data.data.session.sessionToken,
-        tableId,
-        expiresAt: data.data.session.expiresAt,
-      };
-
-      sessionStorage.setItem("session", JSON.stringify(sessionData));
+    mutationFn: async (tableId: string) => {
+      const data = await createSession(tableId);
+      // Session is now stored in HTTP-only cookie - no localStorage needed
+      return data;
     },
+  });
+}
 
-    onError: (error) => {
-      console.error("Session error:", error.message);
-    },
+export function useGetSession() {
+  return useQuery({
+    queryKey: ["session"],
+    queryFn: () => getCurrentSession(),
+    retry: false, // Don't retry if no session
+    staleTime: 1000 * 60 * 5, // 5 minutes
   });
 }

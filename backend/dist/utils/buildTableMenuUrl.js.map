@@ -1,0 +1,1 @@
+{"version":3,"file":"buildTableMenuUrl.js","sourceRoot":"","sources":["../../src/utils/buildTableMenuUrl.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,MAAM,iBAAiB,GAAG,CAAC,OAAe,EAAU,EAAE;IAC3D,MAAM,OAAO,GAAG,OAAO,CAAC,GAAG,CAAC,YAAY,IAAI,uBAAuB,CAAC;IACpE,OAAO,GAAG,OAAO,IAAI,OAAO,EAAE,CAAC,CAAC,uBAAuB;AACzD,CAAC,CAAC"}

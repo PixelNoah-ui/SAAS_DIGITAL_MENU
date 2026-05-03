@@ -1,31 +1,51 @@
 "use client";
 
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { MinusIcon, PlusIcon, ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import getMenuBySlug from "@/app/(api)/getMenuBySlug";
+import { ProductType } from "@/types/Types";
+import { MenuDetailsSkeleton } from "@/components/skeletons/MenuDetailsSkeleton";
 
-export default function MenuDetailsPage() {
+interface MenuDetailsPageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export default function MenuDetailsPage({ params }: MenuDetailsPageProps) {
   const [quantity, setQuantity] = useState(1);
+  const [product, setProduct] = useState<ProductType | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [slug, setSlug] = useState<string>("");
+
+  useEffect(() => {
+    params.then((p) => {
+      setSlug(p.slug);
+    });
+  }, [params]);
+
+  useEffect(() => {
+    if (!slug) return;
+
+    async function fetchMenu() {
+      const data = await getMenuBySlug(slug);
+      if (data?.menuItem) {
+        setProduct(data.menuItem);
+      }
+      setLoading(false);
+    }
+
+    fetchMenu();
+  }, [slug]);
+
   const addItem = useCartStore((state) => state.addItem);
 
-  const product = {
-    id: "chicken-shawarma",
-    slug: "chicken-shawarma",
-    title: "Chicken Shawarma",
-    description:
-      "Spiced chicken wrapped in flatbread with garlic sauce and fresh vegetables.",
-    price: 6.0,
-    image: "/images/menu/shawarma.jpg",
-    time: "8-12 min",
-    isVegetarian: false,
-    category: "main-courses",
-  };
-
   const handleAddToCart = () => {
+    if (!product) return;
     addItem({
-      id: product.id,
+      id: product.slug,
       name: product.title,
       price: product.price,
       imageUrl: product.image,
@@ -35,6 +55,14 @@ export default function MenuDetailsPage() {
 
   const increaseQty = () => setQuantity((prev) => prev + 1);
   const decreaseQty = () => setQuantity((prev) => Math.max(1, prev - 1));
+
+  if (loading) {
+    return <MenuDetailsSkeleton />;
+  }
+
+  if (!product) {
+    notFound();
+  }
 
   return (
     <div className="max-w-6xl mx-auto px-6 md:px-10 lg:px-0 py-10 flex flex-col  md:flex-row gap-10">

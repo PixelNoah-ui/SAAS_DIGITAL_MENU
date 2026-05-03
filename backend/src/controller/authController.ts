@@ -54,9 +54,10 @@ const createSendToken = (
 
 /* ================= SIGNUP ================= */
 export const signup = catchAsync(async (req, res, next) => {
-  const { name, email, password, confirmPassword } = req.body;
+  console.log("Signup request body:", req.body);
+  const { fullName, email, password, confirmPassword } = req.body;
 
-  if (!name || !email || !password || !confirmPassword) {
+  if (!fullName || !email || !password || !confirmPassword) {
     return next(new AppError("All fields required", 400));
   }
 
@@ -76,14 +77,17 @@ export const signup = catchAsync(async (req, res, next) => {
 
   const user = await prisma.adminUser.create({
     data: {
-      name,
+      name: fullName,
       email: email.toLowerCase(),
       password: hashedPassword,
       role: "STAFF",
     },
   });
 
-  createSendToken(user, 201, res, "Account created successfully");
+  res.status(201).json({
+    status: "success",
+    message: "User created successfully",
+  });
 });
 
 /* ================= LOGIN ================= */

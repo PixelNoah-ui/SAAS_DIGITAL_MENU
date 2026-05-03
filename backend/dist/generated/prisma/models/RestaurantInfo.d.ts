@@ -1,0 +1,1054 @@
+import type * as runtime from "@prisma/client/runtime/client";
+import type * as Prisma from "../internal/prismaNamespace.js";
+/**
+ * Model RestaurantInfo
+ *
+ */
+export type RestaurantInfoModel = runtime.Types.Result.DefaultSelection<Prisma.$RestaurantInfoPayload>;
+export type AggregateRestaurantInfo = {
+    _count: RestaurantInfoCountAggregateOutputType | null;
+    _min: RestaurantInfoMinAggregateOutputType | null;
+    _max: RestaurantInfoMaxAggregateOutputType | null;
+};
+export type RestaurantInfoMinAggregateOutputType = {
+    id: string | null;
+    name: string | null;
+    phone: string | null;
+    address: string | null;
+    telegramUsername: string | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+};
+export type RestaurantInfoMaxAggregateOutputType = {
+    id: string | null;
+    name: string | null;
+    phone: string | null;
+    address: string | null;
+    telegramUsername: string | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+};
+export type RestaurantInfoCountAggregateOutputType = {
+    id: number;
+    name: number;
+    phone: number;
+    address: number;
+    telegramUsername: number;
+    createdAt: number;
+    updatedAt: number;
+    _all: number;
+};
+export type RestaurantInfoMinAggregateInputType = {
+    id?: true;
+    name?: true;
+    phone?: true;
+    address?: true;
+    telegramUsername?: true;
+    createdAt?: true;
+    updatedAt?: true;
+};
+export type RestaurantInfoMaxAggregateInputType = {
+    id?: true;
+    name?: true;
+    phone?: true;
+    address?: true;
+    telegramUsername?: true;
+    createdAt?: true;
+    updatedAt?: true;
+};
+export type RestaurantInfoCountAggregateInputType = {
+    id?: true;
+    name?: true;
+    phone?: true;
+    address?: true;
+    telegramUsername?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    _all?: true;
+};
+export type RestaurantInfoAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which RestaurantInfo to aggregate.
+     */
+    where?: Prisma.RestaurantInfoWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of RestaurantInfos to fetch.
+     */
+    orderBy?: Prisma.RestaurantInfoOrderByWithRelationInput | Prisma.RestaurantInfoOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: Prisma.RestaurantInfoWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` RestaurantInfos from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` RestaurantInfos.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned RestaurantInfos
+    **/
+    _count?: true | RestaurantInfoCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+    **/
+    _min?: RestaurantInfoMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+    **/
+    _max?: RestaurantInfoMaxAggregateInputType;
+};
+export type GetRestaurantInfoAggregateType<T extends RestaurantInfoAggregateArgs> = {
+    [P in keyof T & keyof AggregateRestaurantInfo]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateRestaurantInfo[P]> : Prisma.GetScalarType<T[P], AggregateRestaurantInfo[P]>;
+};
+export type RestaurantInfoGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.RestaurantInfoWhereInput;
+    orderBy?: Prisma.RestaurantInfoOrderByWithAggregationInput | Prisma.RestaurantInfoOrderByWithAggregationInput[];
+    by: Prisma.RestaurantInfoScalarFieldEnum[] | Prisma.RestaurantInfoScalarFieldEnum;
+    having?: Prisma.RestaurantInfoScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: RestaurantInfoCountAggregateInputType | true;
+    _min?: RestaurantInfoMinAggregateInputType;
+    _max?: RestaurantInfoMaxAggregateInputType;
+};
+export type RestaurantInfoGroupByOutputType = {
+    id: string;
+    name: string;
+    phone: string;
+    address: string;
+    telegramUsername: string;
+    createdAt: Date;
+    updatedAt: Date;
+    _count: RestaurantInfoCountAggregateOutputType | null;
+    _min: RestaurantInfoMinAggregateOutputType | null;
+    _max: RestaurantInfoMaxAggregateOutputType | null;
+};
+export type GetRestaurantInfoGroupByPayload<T extends RestaurantInfoGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<RestaurantInfoGroupByOutputType, T['by']> & {
+    [P in ((keyof T) & (keyof RestaurantInfoGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], RestaurantInfoGroupByOutputType[P]> : Prisma.GetScalarType<T[P], RestaurantInfoGroupByOutputType[P]>;
+}>>;
+export type RestaurantInfoWhereInput = {
+    AND?: Prisma.RestaurantInfoWhereInput | Prisma.RestaurantInfoWhereInput[];
+    OR?: Prisma.RestaurantInfoWhereInput[];
+    NOT?: Prisma.RestaurantInfoWhereInput | Prisma.RestaurantInfoWhereInput[];
+    id?: Prisma.StringFilter<"RestaurantInfo"> | string;
+    name?: Prisma.StringFilter<"RestaurantInfo"> | string;
+    phone?: Prisma.StringFilter<"RestaurantInfo"> | string;
+    address?: Prisma.StringFilter<"RestaurantInfo"> | string;
+    telegramUsername?: Prisma.StringFilter<"RestaurantInfo"> | string;
+    createdAt?: Prisma.DateTimeFilter<"RestaurantInfo"> | Date | string;
+    updatedAt?: Prisma.DateTimeFilter<"RestaurantInfo"> | Date | string;
+};
+export type RestaurantInfoOrderByWithRelationInput = {
+    id?: Prisma.SortOrder;
+    name?: Prisma.SortOrder;
+    phone?: Prisma.SortOrder;
+    address?: Prisma.SortOrder;
+    telegramUsername?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+};
+export type RestaurantInfoWhereUniqueInput = Prisma.AtLeast<{
+    id?: string;
+    AND?: Prisma.RestaurantInfoWhereInput | Prisma.RestaurantInfoWhereInput[];
+    OR?: Prisma.RestaurantInfoWhereInput[];
+    NOT?: Prisma.RestaurantInfoWhereInput | Prisma.RestaurantInfoWhereInput[];
+    name?: Prisma.StringFilter<"RestaurantInfo"> | string;
+    phone?: Prisma.StringFilter<"RestaurantInfo"> | string;
+    address?: Prisma.StringFilter<"RestaurantInfo"> | string;
+    telegramUsername?: Prisma.StringFilter<"RestaurantInfo"> | string;
+    createdAt?: Prisma.DateTimeFilter<"RestaurantInfo"> | Date | string;
+    updatedAt?: Prisma.DateTimeFilter<"RestaurantInfo"> | Date | string;
+}, "id">;
+export type RestaurantInfoOrderByWithAggregationInput = {
+    id?: Prisma.SortOrder;
+    name?: Prisma.SortOrder;
+    phone?: Prisma.SortOrder;
+    address?: Prisma.SortOrder;
+    telegramUsername?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+    _count?: Prisma.RestaurantInfoCountOrderByAggregateInput;
+    _max?: Prisma.RestaurantInfoMaxOrderByAggregateInput;
+    _min?: Prisma.RestaurantInfoMinOrderByAggregateInput;
+};
+export type RestaurantInfoScalarWhereWithAggregatesInput = {
+    AND?: Prisma.RestaurantInfoScalarWhereWithAggregatesInput | Prisma.RestaurantInfoScalarWhereWithAggregatesInput[];
+    OR?: Prisma.RestaurantInfoScalarWhereWithAggregatesInput[];
+    NOT?: Prisma.RestaurantInfoScalarWhereWithAggregatesInput | Prisma.RestaurantInfoScalarWhereWithAggregatesInput[];
+    id?: Prisma.StringWithAggregatesFilter<"RestaurantInfo"> | string;
+    name?: Prisma.StringWithAggregatesFilter<"RestaurantInfo"> | string;
+    phone?: Prisma.StringWithAggregatesFilter<"RestaurantInfo"> | string;
+    address?: Prisma.StringWithAggregatesFilter<"RestaurantInfo"> | string;
+    telegramUsername?: Prisma.StringWithAggregatesFilter<"RestaurantInfo"> | string;
+    createdAt?: Prisma.DateTimeWithAggregatesFilter<"RestaurantInfo"> | Date | string;
+    updatedAt?: Prisma.DateTimeWithAggregatesFilter<"RestaurantInfo"> | Date | string;
+};
+export type RestaurantInfoCreateInput = {
+    id?: string;
+    name: string;
+    phone: string;
+    address: string;
+    telegramUsername: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+};
+export type RestaurantInfoUncheckedCreateInput = {
+    id?: string;
+    name: string;
+    phone: string;
+    address: string;
+    telegramUsername: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+};
+export type RestaurantInfoUpdateInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.StringFieldUpdateOperationsInput | string;
+    address?: Prisma.StringFieldUpdateOperationsInput | string;
+    telegramUsername?: Prisma.StringFieldUpdateOperationsInput | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type RestaurantInfoUncheckedUpdateInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.StringFieldUpdateOperationsInput | string;
+    address?: Prisma.StringFieldUpdateOperationsInput | string;
+    telegramUsername?: Prisma.StringFieldUpdateOperationsInput | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type RestaurantInfoCreateManyInput = {
+    id?: string;
+    name: string;
+    phone: string;
+    address: string;
+    telegramUsername: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+};
+export type RestaurantInfoUpdateManyMutationInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.StringFieldUpdateOperationsInput | string;
+    address?: Prisma.StringFieldUpdateOperationsInput | string;
+    telegramUsername?: Prisma.StringFieldUpdateOperationsInput | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type RestaurantInfoUncheckedUpdateManyInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.StringFieldUpdateOperationsInput | string;
+    address?: Prisma.StringFieldUpdateOperationsInput | string;
+    telegramUsername?: Prisma.StringFieldUpdateOperationsInput | string;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type RestaurantInfoCountOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    name?: Prisma.SortOrder;
+    phone?: Prisma.SortOrder;
+    address?: Prisma.SortOrder;
+    telegramUsername?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+};
+export type RestaurantInfoMaxOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    name?: Prisma.SortOrder;
+    phone?: Prisma.SortOrder;
+    address?: Prisma.SortOrder;
+    telegramUsername?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+};
+export type RestaurantInfoMinOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    name?: Prisma.SortOrder;
+    phone?: Prisma.SortOrder;
+    address?: Prisma.SortOrder;
+    telegramUsername?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+};
+export type RestaurantInfoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    name?: boolean;
+    phone?: boolean;
+    address?: boolean;
+    telegramUsername?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+}, ExtArgs["result"]["restaurantInfo"]>;
+export type RestaurantInfoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    name?: boolean;
+    phone?: boolean;
+    address?: boolean;
+    telegramUsername?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+}, ExtArgs["result"]["restaurantInfo"]>;
+export type RestaurantInfoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    name?: boolean;
+    phone?: boolean;
+    address?: boolean;
+    telegramUsername?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+}, ExtArgs["result"]["restaurantInfo"]>;
+export type RestaurantInfoSelectScalar = {
+    id?: boolean;
+    name?: boolean;
+    phone?: boolean;
+    address?: boolean;
+    telegramUsername?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+};
+export type RestaurantInfoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "phone" | "address" | "telegramUsername" | "createdAt" | "updatedAt", ExtArgs["result"]["restaurantInfo"]>;
+export type $RestaurantInfoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    name: "RestaurantInfo";
+    objects: {};
+    scalars: runtime.Types.Extensions.GetPayloadResult<{
+        id: string;
+        name: string;
+        phone: string;
+        address: string;
+        telegramUsername: string;
+        createdAt: Date;
+        updatedAt: Date;
+    }, ExtArgs["result"]["restaurantInfo"]>;
+    composites: {};
+};
+export type RestaurantInfoGetPayload<S extends boolean | null | undefined | RestaurantInfoDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$RestaurantInfoPayload, S>;
+export type RestaurantInfoCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<RestaurantInfoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    select?: RestaurantInfoCountAggregateInputType | true;
+};
+export interface RestaurantInfoDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: {
+        types: Prisma.TypeMap<ExtArgs>['model']['RestaurantInfo'];
+        meta: {
+            name: 'RestaurantInfo';
+        };
+    };
+    /**
+     * Find zero or one RestaurantInfo that matches the filter.
+     * @param {RestaurantInfoFindUniqueArgs} args - Arguments to find a RestaurantInfo
+     * @example
+     * // Get one RestaurantInfo
+     * const restaurantInfo = await prisma.restaurantInfo.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RestaurantInfoFindUniqueArgs>(args: Prisma.SelectSubset<T, RestaurantInfoFindUniqueArgs<ExtArgs>>): Prisma.Prisma__RestaurantInfoClient<runtime.Types.Result.GetResult<Prisma.$RestaurantInfoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find one RestaurantInfo that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RestaurantInfoFindUniqueOrThrowArgs} args - Arguments to find a RestaurantInfo
+     * @example
+     * // Get one RestaurantInfo
+     * const restaurantInfo = await prisma.restaurantInfo.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RestaurantInfoFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, RestaurantInfoFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__RestaurantInfoClient<runtime.Types.Result.GetResult<Prisma.$RestaurantInfoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first RestaurantInfo that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RestaurantInfoFindFirstArgs} args - Arguments to find a RestaurantInfo
+     * @example
+     * // Get one RestaurantInfo
+     * const restaurantInfo = await prisma.restaurantInfo.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RestaurantInfoFindFirstArgs>(args?: Prisma.SelectSubset<T, RestaurantInfoFindFirstArgs<ExtArgs>>): Prisma.Prisma__RestaurantInfoClient<runtime.Types.Result.GetResult<Prisma.$RestaurantInfoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first RestaurantInfo that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RestaurantInfoFindFirstOrThrowArgs} args - Arguments to find a RestaurantInfo
+     * @example
+     * // Get one RestaurantInfo
+     * const restaurantInfo = await prisma.restaurantInfo.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RestaurantInfoFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, RestaurantInfoFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__RestaurantInfoClient<runtime.Types.Result.GetResult<Prisma.$RestaurantInfoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find zero or more RestaurantInfos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RestaurantInfoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RestaurantInfos
+     * const restaurantInfos = await prisma.restaurantInfo.findMany()
+     *
+     * // Get first 10 RestaurantInfos
+     * const restaurantInfos = await prisma.restaurantInfo.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const restaurantInfoWithIdOnly = await prisma.restaurantInfo.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends RestaurantInfoFindManyArgs>(args?: Prisma.SelectSubset<T, RestaurantInfoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RestaurantInfoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>;
+    /**
+     * Create a RestaurantInfo.
+     * @param {RestaurantInfoCreateArgs} args - Arguments to create a RestaurantInfo.
+     * @example
+     * // Create one RestaurantInfo
+     * const RestaurantInfo = await prisma.restaurantInfo.create({
+     *   data: {
+     *     // ... data to create a RestaurantInfo
+     *   }
+     * })
+     *
+     */
+    create<T extends RestaurantInfoCreateArgs>(args: Prisma.SelectSubset<T, RestaurantInfoCreateArgs<ExtArgs>>): Prisma.Prisma__RestaurantInfoClient<runtime.Types.Result.GetResult<Prisma.$RestaurantInfoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Create many RestaurantInfos.
+     * @param {RestaurantInfoCreateManyArgs} args - Arguments to create many RestaurantInfos.
+     * @example
+     * // Create many RestaurantInfos
+     * const restaurantInfo = await prisma.restaurantInfo.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends RestaurantInfoCreateManyArgs>(args?: Prisma.SelectSubset<T, RestaurantInfoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Create many RestaurantInfos and returns the data saved in the database.
+     * @param {RestaurantInfoCreateManyAndReturnArgs} args - Arguments to create many RestaurantInfos.
+     * @example
+     * // Create many RestaurantInfos
+     * const restaurantInfo = await prisma.restaurantInfo.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many RestaurantInfos and only return the `id`
+     * const restaurantInfoWithIdOnly = await prisma.restaurantInfo.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends RestaurantInfoCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, RestaurantInfoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RestaurantInfoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Delete a RestaurantInfo.
+     * @param {RestaurantInfoDeleteArgs} args - Arguments to delete one RestaurantInfo.
+     * @example
+     * // Delete one RestaurantInfo
+     * const RestaurantInfo = await prisma.restaurantInfo.delete({
+     *   where: {
+     *     // ... filter to delete one RestaurantInfo
+     *   }
+     * })
+     *
+     */
+    delete<T extends RestaurantInfoDeleteArgs>(args: Prisma.SelectSubset<T, RestaurantInfoDeleteArgs<ExtArgs>>): Prisma.Prisma__RestaurantInfoClient<runtime.Types.Result.GetResult<Prisma.$RestaurantInfoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Update one RestaurantInfo.
+     * @param {RestaurantInfoUpdateArgs} args - Arguments to update one RestaurantInfo.
+     * @example
+     * // Update one RestaurantInfo
+     * const restaurantInfo = await prisma.restaurantInfo.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends RestaurantInfoUpdateArgs>(args: Prisma.SelectSubset<T, RestaurantInfoUpdateArgs<ExtArgs>>): Prisma.Prisma__RestaurantInfoClient<runtime.Types.Result.GetResult<Prisma.$RestaurantInfoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Delete zero or more RestaurantInfos.
+     * @param {RestaurantInfoDeleteManyArgs} args - Arguments to filter RestaurantInfos to delete.
+     * @example
+     * // Delete a few RestaurantInfos
+     * const { count } = await prisma.restaurantInfo.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends RestaurantInfoDeleteManyArgs>(args?: Prisma.SelectSubset<T, RestaurantInfoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more RestaurantInfos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RestaurantInfoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RestaurantInfos
+     * const restaurantInfo = await prisma.restaurantInfo.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends RestaurantInfoUpdateManyArgs>(args: Prisma.SelectSubset<T, RestaurantInfoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more RestaurantInfos and returns the data updated in the database.
+     * @param {RestaurantInfoUpdateManyAndReturnArgs} args - Arguments to update many RestaurantInfos.
+     * @example
+     * // Update many RestaurantInfos
+     * const restaurantInfo = await prisma.restaurantInfo.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more RestaurantInfos and only return the `id`
+     * const restaurantInfoWithIdOnly = await prisma.restaurantInfo.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends RestaurantInfoUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, RestaurantInfoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RestaurantInfoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Create or update one RestaurantInfo.
+     * @param {RestaurantInfoUpsertArgs} args - Arguments to update or create a RestaurantInfo.
+     * @example
+     * // Update or create a RestaurantInfo
+     * const restaurantInfo = await prisma.restaurantInfo.upsert({
+     *   create: {
+     *     // ... data to create a RestaurantInfo
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RestaurantInfo we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RestaurantInfoUpsertArgs>(args: Prisma.SelectSubset<T, RestaurantInfoUpsertArgs<ExtArgs>>): Prisma.Prisma__RestaurantInfoClient<runtime.Types.Result.GetResult<Prisma.$RestaurantInfoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Count the number of RestaurantInfos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RestaurantInfoCountArgs} args - Arguments to filter RestaurantInfos to count.
+     * @example
+     * // Count the number of RestaurantInfos
+     * const count = await prisma.restaurantInfo.count({
+     *   where: {
+     *     // ... the filter for the RestaurantInfos we want to count
+     *   }
+     * })
+    **/
+    count<T extends RestaurantInfoCountArgs>(args?: Prisma.Subset<T, RestaurantInfoCountArgs>): Prisma.PrismaPromise<T extends runtime.Types.Utils.Record<'select', any> ? T['select'] extends true ? number : Prisma.GetScalarType<T['select'], RestaurantInfoCountAggregateOutputType> : number>;
+    /**
+     * Allows you to perform aggregations operations on a RestaurantInfo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RestaurantInfoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RestaurantInfoAggregateArgs>(args: Prisma.Subset<T, RestaurantInfoAggregateArgs>): Prisma.PrismaPromise<GetRestaurantInfoAggregateType<T>>;
+    /**
+     * Group by RestaurantInfo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RestaurantInfoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<T extends RestaurantInfoGroupByArgs, HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>, OrderByArg extends Prisma.True extends HasSelectOrTake ? {
+        orderBy: RestaurantInfoGroupByArgs['orderBy'];
+    } : {
+        orderBy?: RestaurantInfoGroupByArgs['orderBy'];
+    }, OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>, ByFields extends Prisma.MaybeTupleToUnion<T['by']>, ByValid extends Prisma.Has<ByFields, OrderFields>, HavingFields extends Prisma.GetHavingFields<T['having']>, HavingValid extends Prisma.Has<ByFields, HavingFields>, ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False, InputErrors extends ByEmpty extends Prisma.True ? `Error: "by" must not be empty.` : HavingValid extends Prisma.False ? {
+        [P in HavingFields]: P extends ByFields ? never : P extends string ? `Error: Field "${P}" used in "having" needs to be provided in "by".` : [
+            Error,
+            'Field ',
+            P,
+            ` in "having" needs to be provided in "by"`
+        ];
+    }[HavingFields] : 'take' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "take", you also need to provide "orderBy"' : 'skip' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "skip", you also need to provide "orderBy"' : ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields]>(args: Prisma.SubsetIntersection<T, RestaurantInfoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRestaurantInfoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the RestaurantInfo model
+     */
+    readonly fields: RestaurantInfoFieldRefs;
+}
+/**
+ * The delegate class that acts as a "Promise-like" for RestaurantInfo.
+ * Why is this prefixed with `Prisma__`?
+ * Because we want to prevent naming conflicts as mentioned in
+ * https://github.com/prisma/prisma-client-js/issues/707
+ */
+export interface Prisma__RestaurantInfoClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+}
+/**
+ * Fields of the RestaurantInfo model
+ */
+export interface RestaurantInfoFieldRefs {
+    readonly id: Prisma.FieldRef<"RestaurantInfo", 'String'>;
+    readonly name: Prisma.FieldRef<"RestaurantInfo", 'String'>;
+    readonly phone: Prisma.FieldRef<"RestaurantInfo", 'String'>;
+    readonly address: Prisma.FieldRef<"RestaurantInfo", 'String'>;
+    readonly telegramUsername: Prisma.FieldRef<"RestaurantInfo", 'String'>;
+    readonly createdAt: Prisma.FieldRef<"RestaurantInfo", 'DateTime'>;
+    readonly updatedAt: Prisma.FieldRef<"RestaurantInfo", 'DateTime'>;
+}
+/**
+ * RestaurantInfo findUnique
+ */
+export type RestaurantInfoFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RestaurantInfo
+     */
+    select?: Prisma.RestaurantInfoSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RestaurantInfo
+     */
+    omit?: Prisma.RestaurantInfoOmit<ExtArgs> | null;
+    /**
+     * Filter, which RestaurantInfo to fetch.
+     */
+    where: Prisma.RestaurantInfoWhereUniqueInput;
+};
+/**
+ * RestaurantInfo findUniqueOrThrow
+ */
+export type RestaurantInfoFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RestaurantInfo
+     */
+    select?: Prisma.RestaurantInfoSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RestaurantInfo
+     */
+    omit?: Prisma.RestaurantInfoOmit<ExtArgs> | null;
+    /**
+     * Filter, which RestaurantInfo to fetch.
+     */
+    where: Prisma.RestaurantInfoWhereUniqueInput;
+};
+/**
+ * RestaurantInfo findFirst
+ */
+export type RestaurantInfoFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RestaurantInfo
+     */
+    select?: Prisma.RestaurantInfoSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RestaurantInfo
+     */
+    omit?: Prisma.RestaurantInfoOmit<ExtArgs> | null;
+    /**
+     * Filter, which RestaurantInfo to fetch.
+     */
+    where?: Prisma.RestaurantInfoWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of RestaurantInfos to fetch.
+     */
+    orderBy?: Prisma.RestaurantInfoOrderByWithRelationInput | Prisma.RestaurantInfoOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for RestaurantInfos.
+     */
+    cursor?: Prisma.RestaurantInfoWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` RestaurantInfos from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` RestaurantInfos.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of RestaurantInfos.
+     */
+    distinct?: Prisma.RestaurantInfoScalarFieldEnum | Prisma.RestaurantInfoScalarFieldEnum[];
+};
+/**
+ * RestaurantInfo findFirstOrThrow
+ */
+export type RestaurantInfoFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RestaurantInfo
+     */
+    select?: Prisma.RestaurantInfoSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RestaurantInfo
+     */
+    omit?: Prisma.RestaurantInfoOmit<ExtArgs> | null;
+    /**
+     * Filter, which RestaurantInfo to fetch.
+     */
+    where?: Prisma.RestaurantInfoWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of RestaurantInfos to fetch.
+     */
+    orderBy?: Prisma.RestaurantInfoOrderByWithRelationInput | Prisma.RestaurantInfoOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for RestaurantInfos.
+     */
+    cursor?: Prisma.RestaurantInfoWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` RestaurantInfos from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` RestaurantInfos.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of RestaurantInfos.
+     */
+    distinct?: Prisma.RestaurantInfoScalarFieldEnum | Prisma.RestaurantInfoScalarFieldEnum[];
+};
+/**
+ * RestaurantInfo findMany
+ */
+export type RestaurantInfoFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RestaurantInfo
+     */
+    select?: Prisma.RestaurantInfoSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RestaurantInfo
+     */
+    omit?: Prisma.RestaurantInfoOmit<ExtArgs> | null;
+    /**
+     * Filter, which RestaurantInfos to fetch.
+     */
+    where?: Prisma.RestaurantInfoWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of RestaurantInfos to fetch.
+     */
+    orderBy?: Prisma.RestaurantInfoOrderByWithRelationInput | Prisma.RestaurantInfoOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing RestaurantInfos.
+     */
+    cursor?: Prisma.RestaurantInfoWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` RestaurantInfos from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` RestaurantInfos.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of RestaurantInfos.
+     */
+    distinct?: Prisma.RestaurantInfoScalarFieldEnum | Prisma.RestaurantInfoScalarFieldEnum[];
+};
+/**
+ * RestaurantInfo create
+ */
+export type RestaurantInfoCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RestaurantInfo
+     */
+    select?: Prisma.RestaurantInfoSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RestaurantInfo
+     */
+    omit?: Prisma.RestaurantInfoOmit<ExtArgs> | null;
+    /**
+     * The data needed to create a RestaurantInfo.
+     */
+    data: Prisma.XOR<Prisma.RestaurantInfoCreateInput, Prisma.RestaurantInfoUncheckedCreateInput>;
+};
+/**
+ * RestaurantInfo createMany
+ */
+export type RestaurantInfoCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RestaurantInfos.
+     */
+    data: Prisma.RestaurantInfoCreateManyInput | Prisma.RestaurantInfoCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * RestaurantInfo createManyAndReturn
+ */
+export type RestaurantInfoCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RestaurantInfo
+     */
+    select?: Prisma.RestaurantInfoSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RestaurantInfo
+     */
+    omit?: Prisma.RestaurantInfoOmit<ExtArgs> | null;
+    /**
+     * The data used to create many RestaurantInfos.
+     */
+    data: Prisma.RestaurantInfoCreateManyInput | Prisma.RestaurantInfoCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * RestaurantInfo update
+ */
+export type RestaurantInfoUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RestaurantInfo
+     */
+    select?: Prisma.RestaurantInfoSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RestaurantInfo
+     */
+    omit?: Prisma.RestaurantInfoOmit<ExtArgs> | null;
+    /**
+     * The data needed to update a RestaurantInfo.
+     */
+    data: Prisma.XOR<Prisma.RestaurantInfoUpdateInput, Prisma.RestaurantInfoUncheckedUpdateInput>;
+    /**
+     * Choose, which RestaurantInfo to update.
+     */
+    where: Prisma.RestaurantInfoWhereUniqueInput;
+};
+/**
+ * RestaurantInfo updateMany
+ */
+export type RestaurantInfoUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RestaurantInfos.
+     */
+    data: Prisma.XOR<Prisma.RestaurantInfoUpdateManyMutationInput, Prisma.RestaurantInfoUncheckedUpdateManyInput>;
+    /**
+     * Filter which RestaurantInfos to update
+     */
+    where?: Prisma.RestaurantInfoWhereInput;
+    /**
+     * Limit how many RestaurantInfos to update.
+     */
+    limit?: number;
+};
+/**
+ * RestaurantInfo updateManyAndReturn
+ */
+export type RestaurantInfoUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RestaurantInfo
+     */
+    select?: Prisma.RestaurantInfoSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RestaurantInfo
+     */
+    omit?: Prisma.RestaurantInfoOmit<ExtArgs> | null;
+    /**
+     * The data used to update RestaurantInfos.
+     */
+    data: Prisma.XOR<Prisma.RestaurantInfoUpdateManyMutationInput, Prisma.RestaurantInfoUncheckedUpdateManyInput>;
+    /**
+     * Filter which RestaurantInfos to update
+     */
+    where?: Prisma.RestaurantInfoWhereInput;
+    /**
+     * Limit how many RestaurantInfos to update.
+     */
+    limit?: number;
+};
+/**
+ * RestaurantInfo upsert
+ */
+export type RestaurantInfoUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RestaurantInfo
+     */
+    select?: Prisma.RestaurantInfoSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RestaurantInfo
+     */
+    omit?: Prisma.RestaurantInfoOmit<ExtArgs> | null;
+    /**
+     * The filter to search for the RestaurantInfo to update in case it exists.
+     */
+    where: Prisma.RestaurantInfoWhereUniqueInput;
+    /**
+     * In case the RestaurantInfo found by the `where` argument doesn't exist, create a new RestaurantInfo with this data.
+     */
+    create: Prisma.XOR<Prisma.RestaurantInfoCreateInput, Prisma.RestaurantInfoUncheckedCreateInput>;
+    /**
+     * In case the RestaurantInfo was found with the provided `where` argument, update it with this data.
+     */
+    update: Prisma.XOR<Prisma.RestaurantInfoUpdateInput, Prisma.RestaurantInfoUncheckedUpdateInput>;
+};
+/**
+ * RestaurantInfo delete
+ */
+export type RestaurantInfoDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RestaurantInfo
+     */
+    select?: Prisma.RestaurantInfoSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RestaurantInfo
+     */
+    omit?: Prisma.RestaurantInfoOmit<ExtArgs> | null;
+    /**
+     * Filter which RestaurantInfo to delete.
+     */
+    where: Prisma.RestaurantInfoWhereUniqueInput;
+};
+/**
+ * RestaurantInfo deleteMany
+ */
+export type RestaurantInfoDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which RestaurantInfos to delete
+     */
+    where?: Prisma.RestaurantInfoWhereInput;
+    /**
+     * Limit how many RestaurantInfos to delete.
+     */
+    limit?: number;
+};
+/**
+ * RestaurantInfo without action
+ */
+export type RestaurantInfoDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RestaurantInfo
+     */
+    select?: Prisma.RestaurantInfoSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the RestaurantInfo
+     */
+    omit?: Prisma.RestaurantInfoOmit<ExtArgs> | null;
+};
+//# sourceMappingURL=RestaurantInfo.d.ts.map

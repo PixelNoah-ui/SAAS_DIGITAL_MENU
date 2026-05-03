@@ -4,15 +4,27 @@ import EmptyCart from "@/components/EmptyCart";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/cartStore";
 import { useCreateOrder } from "@/hooks/useCreateOrder";
-import { getSession } from "@/lib/getSession";
+import { useCreateSession } from "@/hooks/useSession";
+import { SessionResponse } from "@/app/(api)/CreateSession";
 import { Trash, Loader2 } from "lucide-react";
 import Image from "next/image";
+import { useMutation } from "@tanstack/react-query";
+import { createSession } from "@/app/(api)/CreateSession";
+import { useTableStore } from "@/store/tableStore";
 import { useRouter } from "next/navigation";
 
 export default function CartPage() {
   const { items, removeItem, increaseQty, decreaseQty } = useCartStore();
-  const { mutate: createOrder, isPending } = useCreateOrder();
+  const { mutate: createOrder, isPending: isOrderLoading } = useCreateOrder();
   const router = useRouter();
+
+  const { mutate: createSessionMutation, isPending: isSessionLoading } =
+    useMutation({
+      mutationFn: createSession,
+    });
+  const table = useTableStore((state) => state.table);
+
+  const isLoading = isOrderLoading || isSessionLoading;
 
   const subtotal = items.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -20,21 +32,43 @@ export default function CartPage() {
   );
 
   const handleOrder = () => {
-    const session = getSession();
-    if (!session) {
-      router.push("/");
+    if (!table) {
+      console.error("No table found");
       return;
     }
 
-    const orderItems = items.map((item) => ({
-      menuItemId: item.id,
-      quantity: item.quantity,
-    }));
+    // Create session first, then order
+    createSessionMutation(table.id, {
+      onSuccess: (data: SessionResponse) => {
+        const newSession = {
+          sessionToken: data.data.session.sessionToken,
+          tableId: data.data.session.tableId,
+          expiresAt: data.data.session.expiresAt,
+        };
 
-    createOrder({
-      tableId: session.tableId,
-      items: orderItems,
-      sessionToken: session.sessionToken,
+        const orderItems = items.map((item) => ({
+          menuItemId: item.id,
+          quantity: item.quantity,
+        }));
+
+        createOrder(
+          {
+            tableId: newSession.tableId,
+            items: orderItems,
+            sessionToken: newSession.sessionToken,
+          },
+          {
+            onSuccess: () => {
+              // STEP 3: redirect to active page
+              router.push(`/active?session=${newSession.sessionToken}`);
+            },
+          },
+        );
+      },
+
+      onError: (error: Error) => {
+        console.error("Failed to create session:", error.message);
+      },
     });
   };
 
@@ -156,9 +190,9 @@ export default function CartPage() {
           <Button
             className="w-full py-6 rounded-none bg-primary hover:bg-primary/90 text-primary-foreground"
             onClick={handleOrder}
-            disabled={isPending}
+            disabled={isLoading}
           >
-            {isPending ? (
+            {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Processing...

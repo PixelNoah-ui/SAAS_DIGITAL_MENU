@@ -80,7 +80,7 @@ export default async function getMenus(
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/menu-items?${params.toString()}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/menu-items?${params.toString()}`,
       {
         method: "GET",
         headers: {
@@ -97,6 +97,7 @@ export default async function getMenus(
     }
 
     const result: ApiResponse = await response.json();
+    console.log("Fetched menus:", result);
 
     return {
       menuItems: result.data.menuItems.map((item) => ({
@@ -107,7 +108,6 @@ export default async function getMenus(
         image: item.imageUrl || "/images/bg.png",
         imageUrl: item.imageUrl,
         time: `${item.preparationTime || 15}-${(item.preparationTime || 15) + 5} min`,
-        isVegetarian: false,
         category: item.category || "other",
       })),
       totalPages: result.totalPages || 0,

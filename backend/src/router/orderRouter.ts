@@ -1,8 +1,8 @@
 import express from "express";
 import { protect } from "../controller/authController.js";
 import { restrictTo } from "../middleware/restrictTo.js";
+import { requireSession } from "../middleware/sessionMiddleware.js";
 import {
-  createOrReuseOrderSession,
   createOrder,
   getOrdersBySession,
   getOrders,
@@ -13,9 +13,9 @@ import {
 
 const router = express.Router();
 
-router.post("/sessions", createOrReuseOrderSession);
-router.get("/session", getOrdersBySession);
+// Protected by session cookie - no token in URL
 router.post("/", createOrder);
+router.get("/session", requireSession, getOrdersBySession);
 
 router.use(protect, restrictTo("ADMIN", "MANAGER"));
 router.get("/", getOrders);

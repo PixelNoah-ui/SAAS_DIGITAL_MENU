@@ -1,6 +1,5 @@
-import { MenuGrid } from "@/components/MenuGrid";
-import SearchFilterLayout from "./SearchFilter";
 import getMenus from "@/app/(api)/getMenus";
+import ProtectedMenu from "@/components/ProtectedMenu";
 
 export default async function Home({
   searchParams,
@@ -31,14 +30,11 @@ export default async function Home({
   const currentPage = filters.page || 1;
 
   return (
-    <div>
-      <SearchFilterLayout collections={collection}>
-        <MenuGrid
-          menuItems={menuItems}
-          totalPages={totalPages}
-          currentPage={currentPage}
-        />
-      </SearchFilterLayout>
-    </div>
+    <ProtectedMenu
+      collections={collection}
+      menuItems={menuItems}
+      totalPages={totalPages}
+      currentPage={currentPage}
+    />
   );
 }

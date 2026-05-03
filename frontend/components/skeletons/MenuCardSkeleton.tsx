@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export function MenuCardSkeleton() {
   return (
-    <Card className="overflow-hidden rounded-2xl border bg-card shadow-sm">
+    <Card className="overflow-hidden  border bg-card rounded-none  shadow-sm">
       <div className="relative w-full h-52">
         <Skeleton className="w-full h-full" />
       </div>

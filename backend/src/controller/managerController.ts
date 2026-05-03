@@ -5,22 +5,65 @@ import bcrypt from "bcryptjs";
 import { UserRole } from "../generated/prisma/enums.js";
 
 export const getManagers = catchAsync(async (req, res) => {
-  const managers = await prisma.adminUser.findMany({
-    where: { role: UserRole.MANAGER },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      role: true,
-      createdAt: true,
-    },
-    orderBy: { createdAt: "desc" },
-  });
+  const { q, role, page = "1" } = req.query;
+
+  const pageNumber = parseInt(page as string, 10) || 1;
+  const limit = 10;
+  const skip = (pageNumber - 1) * limit;
+
+  const where: any = {};
+
+  if (role) {
+    where.role = role;
+  }
+
+  if (q) {
+    where.OR = [
+      {
+        name: {
+          contains: q as string,
+          mode: "insensitive",
+        },
+      },
+      {
+        email: {
+          contains: q as string,
+          mode: "insensitive",
+        },
+      },
+    ];
+  }
+
+  const [staff, total] = await Promise.all([
+    prisma.adminUser.findMany({
+      where,
+      skip,
+      take: limit,
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        createdAt: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    }),
+    prisma.adminUser.count({ where }),
+  ]);
+
+  const totalPages = Math.ceil(total / limit);
 
   res.status(200).json({
-    status: "success",
-    results: managers.length,
-    data: { managers },
+    success: true,
+    data: {
+      staff,
+      pagination: {
+        total,
+        totalPages,
+      },
+    },
   });
 });
 
