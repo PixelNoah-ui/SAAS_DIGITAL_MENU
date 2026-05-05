@@ -4,7 +4,6 @@ import EmptyCart from "@/components/EmptyCart";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/cartStore";
 import { useCreateOrder } from "@/hooks/useCreateOrder";
-import { useCreateSession } from "@/hooks/useSession";
 import { SessionResponse } from "@/app/(api)/CreateSession";
 import { Trash, Loader2 } from "lucide-react";
 import Image from "next/image";
@@ -60,7 +59,7 @@ export default function CartPage() {
           {
             onSuccess: () => {
               // STEP 3: redirect to active page
-              router.push(`/active?session=${newSession.sessionToken}`);
+              router.push(`/active`);
             },
           },
         );

@@ -6,20 +6,19 @@ export function getSessionCookieName() {
     return SESSION_COOKIE_NAME;
 }
 export function setSessionCookie(res, sessionToken, expiresAt) {
-    const maxAge = Math.floor((expiresAt.getTime() - Date.now()) / 1000);
+    const isProd = process.env.NODE_ENV === "production";
     res.cookie(SESSION_COOKIE_NAME, sessionToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        maxAge: maxAge > 0 ? maxAge : 0,
-        path: "/",
+        secure: isProd,
+        sameSite: isProd ? "none" : "lax",
+        maxAge: expiresAt.getTime() - Date.now(),
     });
 }
 export function clearSessionCookie(res) {
     res.cookie(SESSION_COOKIE_NAME, "", {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         maxAge: 0,
         path: "/",
     });

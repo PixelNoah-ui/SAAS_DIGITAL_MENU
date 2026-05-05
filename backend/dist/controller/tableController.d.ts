@@ -21,6 +21,5 @@ export declare const deleteTable: import("express").RequestHandler<import("expre
 /**
  * Get table by QR token (for customer scanning)
  */
-export declare const getTableByQrToken: import("express").RequestHandler<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>;
 export declare const scanTable: import("express").RequestHandler<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>;
 //# sourceMappingURL=tableController.d.ts.map

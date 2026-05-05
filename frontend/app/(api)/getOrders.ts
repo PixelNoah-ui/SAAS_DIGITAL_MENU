@@ -32,6 +32,8 @@ export const getActiveOrders = async (): Promise<GetActiveOrdersResponse> => {
   );
 
   if (!res.ok) {
+    const err = await res.json();
+    console.error("Failed to fetch active orders:", err);
     throw new Error("Failed to fetch orders");
   }
 

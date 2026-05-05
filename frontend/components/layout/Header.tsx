@@ -15,13 +15,13 @@ export default function Header() {
   const restaurant = data?.data?.restaurant;
   const restaurantName = restaurant?.name || "My Restaurant";
   const restaurantRoom = restaurant?.room || "";
-  const logoUrl = restaurant?.logoUrl || "/images/logo.svg";
+  const logoUrl = restaurant?.logoUrl || "/icons/logo.svg";
 
   return (
     <header className="w-full border-b bg-white">
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
         {/* LEFT */}
-        <div className="flex items-center gap-4">
+        <Link href="/" className="flex items-center gap-4">
           <div className="relative w-10 h-10">
             <Image
               src={logoUrl}
@@ -47,7 +47,7 @@ export default function Header() {
               </div>
             </div>
           </div>
-        </div>
+        </Link>
 
         {/* RIGHT */}
         <div className="flex items-center gap-4">

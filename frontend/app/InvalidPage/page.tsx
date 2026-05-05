@@ -1,63 +1,45 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { AlertTriangle, Home, RefreshCw } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { AlertTriangle } from "lucide-react";
 
-export default function InvalidPage() {
-  const router = useRouter();
+interface InvalidPageProps {
+  isInvalidQR?: boolean;
+}
+
+export default function InvalidPage({ isInvalidQR = true }: InvalidPageProps) {
+  const title = isInvalidQR ? "Invalid QR Code" : "Scan QR to Continue";
+  const description = isInvalidQR
+    ? "This QR code is invalid or expired."
+    : "Scan the table QR to start ordering.";
 
   return (
-    <div className="flex items-center justify-center h-screen bg-muted px-4">
-      <div className="max-w-md w-full bg-background border rounded-2xl shadow-lg p-8 text-center space-y-6">
-        {/* ICON */}
-        <div className="flex justify-center">
-          <div className="p-4 rounded-full bg-red-100">
-            <AlertTriangle className="w-10 h-10 text-red-600" />
-          </div>
-        </div>
-
-        {/* TITLE */}
-        <div className="space-y-2">
-          <h1 className="text-2xl font-bold text-foreground">
-            Invalid QR Code
-          </h1>
-
-          <p className="text-muted-foreground text-sm">
-            This QR code is either expired, incorrect, or not registered in the
-            system.
-          </p>
-        </div>
-
-        {/* INFO BOX */}
-        <div className="bg-muted rounded-lg p-4 text-left text-sm space-y-1">
-          <p>• Please check the QR and try again</p>
-          <p>• Ask staff for a valid table QR</p>
-          <p>• Make sure camera scan is clear</p>
-        </div>
-
-        {/* ACTION BUTTONS */}
-        <div className="flex flex-col gap-3">
-          <Button className="w-full" onClick={() => router.push("/")}>
-            <Home className="w-4 h-4 mr-2" />
-            Go Home
-          </Button>
-
-          <Button
-            variant="outline"
-            className="w-full"
-            onClick={() => router.back()}
-          >
-            <RefreshCw className="w-4 h-4 mr-2" />
-            Try Again
-          </Button>
-        </div>
-
-        {/* FOOTER */}
-        <p className="text-xs text-muted-foreground">
-          PixelHotel Digital Ordering System
-        </p>
+    <div className="max-w-md mx-auto mt-20 p-6 text-center space-y-5 bg-background shadow rounded-lg">
+      {/* Icon */}
+      <div className="flex justify-center">
+        {isInvalidQR ? (
+          <AlertTriangle className="w-10 h-10 text-red-600" />
+        ) : (
+          <span className="text-4xl">📱</span>
+        )}
       </div>
+
+      {/* Text */}
+      <div>
+        <h1 className="text-xl font-semibold">{title}</h1>
+        <p className="text-sm text-muted-foreground mt-1">{description}</p>
+      </div>
+
+      {/* Tips */}
+      <div className="text-sm text-muted-foreground">
+        {isInvalidQR ? (
+          <p>Check QR or ask staff for help.</p>
+        ) : (
+          <p>Open camera and scan the QR code.</p>
+        )}
+      </div>
+
+      {/* Footer */}
+      <p className="text-xs text-muted-foreground">PixelHotel</p>
     </div>
   );
 }

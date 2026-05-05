@@ -3,6 +3,7 @@ import { prisma } from "../lib/Prisma.js";
 import { catchAsync } from "../utils/catchAsync.js";
 import { AppError } from "../utils/AppError.js";
 import { setSessionCookie, clearSessionCookie, } from "../middleware/sessionMiddleware.js";
+import dotenv from "dotenv";
 const SESSION_EXPIRE_HOURS = Number(process.env.SESSION_EXPIRE_HOURS ?? 3);
 const SESSION_EXPIRE_MS = SESSION_EXPIRE_HOURS * 60 * 60 * 1000;
 /**

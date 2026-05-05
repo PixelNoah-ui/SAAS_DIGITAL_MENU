@@ -16,6 +16,7 @@ export async function createSession(tableId: string) {
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include",
     body: JSON.stringify({ tableId }),
   });
 

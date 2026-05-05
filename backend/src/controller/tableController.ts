@@ -283,29 +283,7 @@ export const deleteTable = catchAsync(async (req, res) => {
 /**
  * Get table by QR token (for customer scanning)
  */
-export const getTableByQrToken = catchAsync(async (req, res) => {
-  const qrToken = req.params.qrToken as string;
 
-  const table = await prisma.table.findFirst({
-    where: { qrToken, isActive: true },
-  });
-
-  if (!table) {
-    throw new AppError("Invalid or inactive table QR code", 404);
-  }
-
-  res.status(200).json({
-    success: true,
-    data: {
-      table: {
-        id: table.id,
-        tableNumber: table.tableNumber,
-        capacity: table.capacity,
-        status: table.status,
-      },
-    },
-  });
-});
 
 export const scanTable = catchAsync(async (req, res, next) => {
   const { qrToken } = req.body;
