@@ -17,9 +17,8 @@ const getNumber = (value: unknown): number | undefined => {
 export const getMenuItems = catchAsync(async (req, res) => {
   const search = getString(req.query.search);
   const page = Math.max(1, getNumber(req.query.page) || 1);
-  const limit = Math.min(100, Math.max(1, getNumber(req.query.limit) || 50));
+  const limit = 9;
 
-  // Filters
   const collections = req.query.collections;
   const priceMin = getNumber(req.query.price_min);
   const priceMax = getNumber(req.query.price_max);
@@ -29,51 +28,59 @@ export const getMenuItems = catchAsync(async (req, res) => {
     isAvailable: true,
   };
 
-  /**
-   * 🔍 Search
-   */
+  // -------------------------
+  // SEARCH (safe OR merge)
+  // -------------------------
+  const andConditions: any[] = [];
+
   if (search) {
-    where.OR = [
-      { name: { contains: search, mode: "insensitive" } },
-      { description: { contains: search, mode: "insensitive" } },
-    ];
+    andConditions.push({
+      OR: [
+        { name: { contains: search, mode: "insensitive" } },
+        { description: { contains: search, mode: "insensitive" } },
+      ],
+    });
   }
 
-  /**
-   * 📂 Category filter
-   */
+  // -------------------------
+  // CATEGORY FILTER (FIXED)
+  // -------------------------
   if (collections) {
     const categoryList = (
       Array.isArray(collections) ? collections : [collections]
     ).filter((c): c is string => typeof c === "string" && c.trim() !== "");
 
     if (categoryList.length > 0) {
-      // Use OR array for case-insensitive match
-      where.OR = categoryList.map((cat) => ({
-        category: { equals: cat.trim(), mode: "insensitive" },
-      }));
+      andConditions.push({
+        category: {
+          in: categoryList.map((c) => c.trim()),
+          mode: "insensitive",
+        },
+      });
     }
   }
 
-  /**
-   * 💰 Price filter (Decimal FIX)
-   */
+  // -------------------------
+  // PRICE FILTER
+  // -------------------------
   if (priceMin !== undefined || priceMax !== undefined) {
-    where.price = {};
+    const priceFilter: any = {};
 
-    if (priceMin !== undefined) {
-      where.price.gte = new Prisma.Decimal(priceMin);
-    }
+    if (priceMin !== undefined) priceFilter.gte = new Prisma.Decimal(priceMin);
+    if (priceMax !== undefined) priceFilter.lte = new Prisma.Decimal(priceMax);
 
-    if (priceMax !== undefined) {
-      where.price.lte = new Prisma.Decimal(priceMax);
-    }
+    andConditions.push({ price: priceFilter });
   }
 
-  /**
-   * 🔄 Sorting
-   */
-  let orderBy: any = { createdAt: "desc" };
+  // merge conditions safely
+  if (andConditions.length > 0) {
+    where.AND = andConditions;
+  }
+
+  // -------------------------
+  // SORTING
+  // -------------------------
+  let orderBy: any = { updatedAt: "desc" };
 
   switch (sort) {
     case "price_asc":
@@ -88,35 +95,35 @@ export const getMenuItems = catchAsync(async (req, res) => {
     case "name_desc":
       orderBy = { name: "desc" };
       break;
-    case "last_updated":
     default:
       orderBy = { updatedAt: "desc" };
-      break;
   }
 
-  /**
-   * ⚡ Parallel queries
-   */
+  // -------------------------
+  // QUERY
+  // -------------------------
+  const skip = (page - 1) * limit;
+
   const [total, menuItems] = await Promise.all([
     prisma.menuItem.count({ where }),
     prisma.menuItem.findMany({
       where,
       orderBy,
-      skip: (page - 1) * limit,
+      skip,
       take: limit,
     }),
   ]);
 
-  res.status(200).json({
+  const totalPages = Math.ceil(total / limit);
+
+  return res.status(200).json({
     status: "success",
-    results: menuItems.length,
-    total,
-    totalPages: Math.ceil(total / limit),
-    currentPage: page,
-    data: { menuItems },
+    totalPages,
+    data: {
+      menuItems,
+    },
   });
 });
-
 /**
  * Get single item
  */
@@ -181,7 +188,10 @@ export const createMenuItem = catchAsync(async (req, res, next) => {
  */
 export const updateMenuItem = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  const updateData = { ...req.body };
+  const { price, name, categoryType, imageUrl, description, preparationTime } =
+    req.body;
+
+  console.log("Update data:", req.body);
 
   const existing = await prisma.menuItem.findUnique({
     where: { id: id as string },
@@ -191,10 +201,35 @@ export const updateMenuItem = catchAsync(async (req, res, next) => {
     return next(new AppError("Menu item not found", 404));
   }
 
-  // Fix price if exists
-  if (updateData.price !== undefined) {
-    updateData.price = new Prisma.Decimal(updateData.price);
+  const updateData: any = {};
+
+  // Validate and convert price
+  if (price !== undefined) {
+    const priceNum = Number(price);
+    if (isNaN(priceNum)) {
+      return next(new AppError("Invalid price", 400));
+    }
+    updateData.price = new Prisma.Decimal(priceNum);
   }
+
+  // Validate and convert preparationTime
+  if (preparationTime !== undefined) {
+    const prepTimeNum = Number(preparationTime);
+    if (isNaN(prepTimeNum)) {
+      return next(new AppError("Invalid preparation time", 400));
+    }
+    updateData.preparationTime = prepTimeNum;
+  }
+
+  // Map categoryType to category
+  if (categoryType !== undefined) {
+    updateData.category = categoryType;
+  }
+
+  // Other fields
+  if (name !== undefined) updateData.name = name;
+  if (imageUrl !== undefined) updateData.imageUrl = imageUrl;
+  if (description !== undefined) updateData.description = description;
 
   if (!Object.keys(updateData).length) {
     return next(new AppError("No data provided for update", 400));

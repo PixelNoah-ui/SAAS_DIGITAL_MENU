@@ -114,6 +114,7 @@ export const OrderScalarFieldEnum = {
     orderSessionId: 'orderSessionId',
     status: 'status',
     totalAmount: 'totalAmount',
+    isRead: 'isRead',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };

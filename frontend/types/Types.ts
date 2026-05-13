@@ -1,6 +1,6 @@
 export type sortType = "last_updated" | "price_asc" | "price_desc";
 export type ProductType = {
-  slug: string;
+  id: string;
   title: string;
   description: string;
   price: number;

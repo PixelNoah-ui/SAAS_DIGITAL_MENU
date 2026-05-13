@@ -4,12 +4,12 @@ export interface GetMenuBySlugResponse {
   menuItem: ProductType;
 }
 
-export default async function getMenuBySlug(
-  slug: string,
+export default async function getMenu(
+  id: string,
 ): Promise<GetMenuBySlugResponse | null> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/menu-items/${slug}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/menu-items/${id}`,
       {
         method: "GET",
         headers: {
@@ -29,7 +29,7 @@ export default async function getMenuBySlug(
 
     return {
       menuItem: {
-        slug: result.data.menuItem.id,
+        id: result.data.menuItem.id,
         title: result.data.menuItem.name,
         description: result.data.menuItem.description || "",
         price: Number(result.data.menuItem.price),

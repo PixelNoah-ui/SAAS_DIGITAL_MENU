@@ -1,51 +1,33 @@
 "use client";
 
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { MinusIcon, PlusIcon, ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
-import { useState, useEffect } from "react";
-import getMenuBySlug from "@/app/(api)/getMenuBySlug";
-import { ProductType } from "@/types/Types";
+import { useState } from "react";
+
 import { MenuDetailsSkeleton } from "@/components/skeletons/MenuDetailsSkeleton";
+import { useGetMenu } from "@/hooks/useGetMenu";
 
-interface MenuDetailsPageProps {
-  params: Promise<{ slug: string }>;
-}
+export default function MenuDetailsPage() {
+  const params = useParams();
 
-export default function MenuDetailsPage({ params }: MenuDetailsPageProps) {
+  const id = params.id as string;
+
   const [quantity, setQuantity] = useState(1);
-  const [product, setProduct] = useState<ProductType | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [slug, setSlug] = useState<string>("");
 
-  useEffect(() => {
-    params.then((p) => {
-      setSlug(p.slug);
-    });
-  }, [params]);
+  const { data, isPending } = useGetMenu(id);
 
-  useEffect(() => {
-    if (!slug) return;
-
-    async function fetchMenu() {
-      const data = await getMenuBySlug(slug);
-      if (data?.menuItem) {
-        setProduct(data.menuItem);
-      }
-      setLoading(false);
-    }
-
-    fetchMenu();
-  }, [slug]);
+  const product = data?.menuItem;
 
   const addItem = useCartStore((state) => state.addItem);
 
   const handleAddToCart = () => {
     if (!product) return;
+
     addItem({
-      id: product.slug,
+      id: product.id,
       name: product.title,
       price: product.price,
       imageUrl: product.image,
@@ -54,9 +36,10 @@ export default function MenuDetailsPage({ params }: MenuDetailsPageProps) {
   };
 
   const increaseQty = () => setQuantity((prev) => prev + 1);
+
   const decreaseQty = () => setQuantity((prev) => Math.max(1, prev - 1));
 
-  if (loading) {
+  if (isPending) {
     return <MenuDetailsSkeleton />;
   }
 
@@ -65,10 +48,10 @@ export default function MenuDetailsPage({ params }: MenuDetailsPageProps) {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-6 md:px-10 lg:px-0 py-10 flex flex-col  md:flex-row gap-10">
+    <div className="max-w-6xl mx-auto px-6 md:px-10 lg:px-0 py-10 flex flex-col md:flex-row gap-10">
       {/* LEFT */}
       <div className="basis-2/5 w-full md:sticky md:top-10">
-        <div className="relative w-full h-80  overflow-hidden rounded-xl border">
+        <div className="relative w-full h-80 overflow-hidden rounded-xl border">
           <Image
             src={product.image}
             alt={product.title}
@@ -78,7 +61,7 @@ export default function MenuDetailsPage({ params }: MenuDetailsPageProps) {
         </div>
       </div>
 
-      {/* RIGHT CONTENT */}
+      {/* RIGHT */}
       <div className="basis-3/5 w-full space-y-5">
         {/* TITLE */}
         <div className="space-y-2.5">
@@ -92,11 +75,11 @@ export default function MenuDetailsPage({ params }: MenuDetailsPageProps) {
         {/* DESCRIPTION */}
         <p className="max-w-prose">{product.description}</p>
 
-        {/* PRICE + TIME */}
+        {/* PRICE */}
         <div className="flex items-center justify-between">
-          <span className="text-2xl font-bold text-primary">
-            ${product.price}
-          </span>
+          <div className="text-2xl font-bold text-primary">
+            <span className="text-black">{product.price}</span> ETB
+          </div>
 
           <span className="text-muted-foreground text-sm">
             ⏱ {product.time}
@@ -114,12 +97,12 @@ export default function MenuDetailsPage({ params }: MenuDetailsPageProps) {
 
             <input
               type="number"
-              className="max-w-16 border px-3 py-1 text-center"
               min="1"
               value={quantity}
               onChange={(e) =>
                 setQuantity(Math.max(1, parseInt(e.target.value) || 1))
               }
+              className="max-w-16 border px-3 py-1 text-center"
             />
 
             <button onClick={increaseQty}>
@@ -128,10 +111,10 @@ export default function MenuDetailsPage({ params }: MenuDetailsPageProps) {
           </div>
         </div>
 
-        {/* ADD TO CART */}
+        {/* BUTTON */}
         <Button
-          className="w-full font-medium rounded-none py-3"
           onClick={handleAddToCart}
+          className="w-full rounded-none py-3 font-medium"
         >
           <ShoppingCart className="size-5 text-white" />
           Add to cart

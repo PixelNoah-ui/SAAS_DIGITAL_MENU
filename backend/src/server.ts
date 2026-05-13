@@ -8,10 +8,13 @@ const PORT = process.env.PORT || 8000;
 app.use(morgan("dev"));
 await prisma.$connect();
 
-const server = app.listen(PORT, () => {
+import http from "http";
+
+const server = http.createServer(app);
+
+server.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
-
 process.on("unhandledRejection", (err: any) => {
   console.error("UNHANDLED REJECTION 💥", err);
   server.close(async () => {

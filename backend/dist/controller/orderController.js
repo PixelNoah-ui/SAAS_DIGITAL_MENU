@@ -62,6 +62,106 @@ const validateOrderStatus = (status) => {
     }
     return status;
 };
+const PAGE_SIZE = 10;
+export const getAdminOrders = catchAsync(async (req, res) => {
+    const q = req.query.q?.toString() || "";
+    const status = req.query.status?.toString();
+    const page = Number(req.query.page || 1);
+    const skip = (page - 1) * PAGE_SIZE;
+    // ---------------------------------
+    // Build where clause
+    // ---------------------------------
+    const where = {};
+    // Status filter
+    if (status && status.toUpperCase() !== "ALL") {
+        where.status = status;
+    }
+    // Search
+    if (q) {
+        where.OR = [];
+        // Search by table number
+        if (!isNaN(Number(q))) {
+            where.OR.push({
+                table: {
+                    tableNumber: Number(q),
+                },
+            });
+        }
+        // Search by menu item name
+        where.OR.push({
+            items: {
+                some: {
+                    menuItem: {
+                        name: {
+                            contains: q,
+                            mode: "insensitive",
+                        },
+                    },
+                },
+            },
+        });
+    }
+    // ---------------------------------
+    // Total count
+    // ---------------------------------
+    const total = await prisma.order.count({
+        where,
+    });
+    // ---------------------------------
+    // Get orders
+    // ---------------------------------
+    const orders = await prisma.order.findMany({
+        where,
+        skip,
+        take: PAGE_SIZE,
+        orderBy: {
+            createdAt: "desc",
+        },
+        include: {
+            table: true,
+            items: {
+                include: {
+                    menuItem: {
+                        select: {
+                            name: true,
+                        },
+                    },
+                },
+            },
+        },
+    });
+    // ---------------------------------
+    // Format response
+    // ---------------------------------
+    const formattedOrders = orders.map((order) => ({
+        id: order.id,
+        tableId: order.tableId,
+        tableName: `Table ${order.table?.tableNumber ?? "Unknown"}`,
+        status: order.status,
+        totalAmount: Number(order.totalAmount),
+        createdAt: order.createdAt,
+        updatedAt: order.updatedAt,
+        itemCount: order.items.reduce((acc, item) => acc + item.quantity, 0),
+        items: order.items.map((item) => ({
+            id: item.id,
+            quantity: item.quantity,
+            price: Number(item.price),
+            menuItem: {
+                name: item.menuItem?.name || "Unknown Item",
+            },
+        })),
+    }));
+    return res.status(200).json({
+        success: true,
+        data: {
+            orders: formattedOrders,
+            pagination: {
+                total,
+                totalPages: Math.ceil(total / PAGE_SIZE),
+            },
+        },
+    });
+});
 export const getOrders = catchAsync(async (req, res) => {
     const page = Math.max(1, Number(req.query.page) || 1);
     const limit = 9;
@@ -100,6 +200,7 @@ export const getOrders = catchAsync(async (req, res) => {
         createdAt: order.createdAt.toISOString(),
         updatedAt: order.updatedAt.toISOString(),
         itemCount: order.items?.reduce((sum, item) => sum + item.quantity, 0) || 0,
+        isRead: order.isRead,
         items: (order.items || []).map((item) => ({
             id: item.id,
             quantity: item.quantity,
@@ -179,6 +280,24 @@ export const deleteOrder = catchAsync(async (req, res, next) => {
         data: null,
     });
 });
+export const getUnreadOrderCount = catchAsync(async (req, res) => {
+    const count = await prisma.order.count({
+        where: { isRead: false },
+    });
+    res.status(200).json({
+        count,
+    });
+});
+export const markOrdersRead = catchAsync(async (req, res) => {
+    await prisma.order.updateMany({
+        where: { isRead: false },
+        data: { isRead: true },
+    });
+    res.status(200).json({
+        status: "success",
+        data: { markedRead: true },
+    });
+});
 export const createOrReuseOrderSession = catchAsync(async (req, res, next) => {
     const { tableId } = req.body;
     if (!tableId || typeof tableId !== "string") {
@@ -208,10 +327,63 @@ export const createOrReuseOrderSession = catchAsync(async (req, res, next) => {
 export const getOrdersBySession = catchAsync(async (req, res, next) => {
     // Use session from cookie (set by middleware)
     if (!req.session) {
-        return next(new AppError("No active session. Please scan QR code.", 401));
+        // Return empty orders instead of error for better UX
+        return res.status(200).json({
+            status: "success",
+            data: {
+                orders: [],
+                pagination: {
+                    total: 0,
+                    totalPages: 0,
+                    currentPage: 1,
+                },
+            },
+        });
     }
+    const page = Math.max(1, Number(req.query.page) || 1);
+    const limit = 10; // Orders per page
+    const where = { orderSessionId: req.session.id };
+    // Status filter - handle multiple statuses
+    const rawStatus = req.query.status;
+    if (rawStatus && rawStatus.length > 0) {
+        const statuses = Array.isArray(rawStatus) ? rawStatus : [rawStatus];
+        const validStatuses = Object.values(OrderStatus);
+        const filteredStatuses = statuses
+            .map((status) => status.toUpperCase())
+            .filter((status) => validStatuses.includes(status));
+        if (filteredStatuses.length > 0) {
+            where.status = {
+                in: filteredStatuses,
+            };
+        }
+    }
+    // Date range filter
+    const dateFrom = req.query.date_from;
+    const dateTo = req.query.date_to;
+    if (dateFrom || dateTo) {
+        where.createdAt = {};
+        if (dateFrom) {
+            where.createdAt.gte = new Date(dateFrom);
+        }
+        if (dateTo) {
+            where.createdAt.lte = new Date(dateTo);
+        }
+    }
+    // Sort
+    const sort = req.query.sort;
+    let orderBy = { createdAt: "desc" };
+    if (sort === "oldest") {
+        orderBy = { createdAt: "asc" };
+    }
+    else if (sort === "total_asc") {
+        orderBy = { totalAmount: "asc" };
+    }
+    else if (sort === "total_desc") {
+        orderBy = { totalAmount: "desc" };
+    }
+    const total = await prisma.order.count({ where });
     const orders = await prisma.order.findMany({
-        where: { orderSessionId: req.session.id },
+        where,
         include: {
             items: {
                 include: {
@@ -219,11 +391,20 @@ export const getOrdersBySession = catchAsync(async (req, res, next) => {
                 },
             },
         },
-        orderBy: { createdAt: "desc" },
+        orderBy,
+        skip: (page - 1) * limit,
+        take: limit,
     });
     res.status(200).json({
         status: "success",
-        data: { orders },
+        data: {
+            orders,
+            pagination: {
+                total,
+                totalPages: Math.ceil(total / limit),
+                currentPage: page,
+            },
+        },
     });
 });
 export const createOrder = catchAsync(async (req, res, next) => {
@@ -301,6 +482,7 @@ export const createOrder = catchAsync(async (req, res, next) => {
                 tableId,
                 orderSessionId: session.id,
                 totalAmount,
+                isRead: false,
                 items: {
                     create: orderItems,
                 },
@@ -310,10 +492,22 @@ export const createOrder = catchAsync(async (req, res, next) => {
             },
         });
     });
+    const fullOrder = await prisma.order.findUnique({
+        where: { id: order.id },
+        include: {
+            table: true,
+            orderSession: true,
+            items: {
+                include: {
+                    menuItem: true,
+                },
+            },
+        },
+    });
     res.status(201).json({
         status: "success",
         data: {
-            order,
+            order: fullOrder ?? order,
             session,
         },
     });

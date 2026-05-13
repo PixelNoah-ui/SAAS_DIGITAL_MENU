@@ -25,6 +25,7 @@ export type OrderMinAggregateOutputType = {
     orderSessionId: string | null;
     status: $Enums.OrderStatus | null;
     totalAmount: runtime.Decimal | null;
+    isRead: boolean | null;
     createdAt: Date | null;
     updatedAt: Date | null;
 };
@@ -34,6 +35,7 @@ export type OrderMaxAggregateOutputType = {
     orderSessionId: string | null;
     status: $Enums.OrderStatus | null;
     totalAmount: runtime.Decimal | null;
+    isRead: boolean | null;
     createdAt: Date | null;
     updatedAt: Date | null;
 };
@@ -43,6 +45,7 @@ export type OrderCountAggregateOutputType = {
     orderSessionId: number;
     status: number;
     totalAmount: number;
+    isRead: number;
     createdAt: number;
     updatedAt: number;
     _all: number;
@@ -59,6 +62,7 @@ export type OrderMinAggregateInputType = {
     orderSessionId?: true;
     status?: true;
     totalAmount?: true;
+    isRead?: true;
     createdAt?: true;
     updatedAt?: true;
 };
@@ -68,6 +72,7 @@ export type OrderMaxAggregateInputType = {
     orderSessionId?: true;
     status?: true;
     totalAmount?: true;
+    isRead?: true;
     createdAt?: true;
     updatedAt?: true;
 };
@@ -77,6 +82,7 @@ export type OrderCountAggregateInputType = {
     orderSessionId?: true;
     status?: true;
     totalAmount?: true;
+    isRead?: true;
     createdAt?: true;
     updatedAt?: true;
     _all?: true;
@@ -163,6 +169,7 @@ export type OrderGroupByOutputType = {
     orderSessionId: string | null;
     status: $Enums.OrderStatus;
     totalAmount: runtime.Decimal;
+    isRead: boolean;
     createdAt: Date;
     updatedAt: Date;
     _count: OrderCountAggregateOutputType | null;
@@ -183,6 +190,7 @@ export type OrderWhereInput = {
     orderSessionId?: Prisma.StringNullableFilter<"Order"> | string | null;
     status?: Prisma.EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus;
     totalAmount?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: Prisma.BoolFilter<"Order"> | boolean;
     createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string;
     table?: Prisma.XOR<Prisma.TableScalarRelationFilter, Prisma.TableWhereInput>;
@@ -195,6 +203,7 @@ export type OrderOrderByWithRelationInput = {
     orderSessionId?: Prisma.SortOrderInput | Prisma.SortOrder;
     status?: Prisma.SortOrder;
     totalAmount?: Prisma.SortOrder;
+    isRead?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
     table?: Prisma.TableOrderByWithRelationInput;
@@ -210,6 +219,7 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
     orderSessionId?: Prisma.StringNullableFilter<"Order"> | string | null;
     status?: Prisma.EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus;
     totalAmount?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: Prisma.BoolFilter<"Order"> | boolean;
     createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string;
     table?: Prisma.XOR<Prisma.TableScalarRelationFilter, Prisma.TableWhereInput>;
@@ -222,6 +232,7 @@ export type OrderOrderByWithAggregationInput = {
     orderSessionId?: Prisma.SortOrderInput | Prisma.SortOrder;
     status?: Prisma.SortOrder;
     totalAmount?: Prisma.SortOrder;
+    isRead?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
     _count?: Prisma.OrderCountOrderByAggregateInput;
@@ -239,6 +250,7 @@ export type OrderScalarWhereWithAggregatesInput = {
     orderSessionId?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null;
     status?: Prisma.EnumOrderStatusWithAggregatesFilter<"Order"> | $Enums.OrderStatus;
     totalAmount?: Prisma.DecimalWithAggregatesFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean;
     createdAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string;
     updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string;
 };
@@ -246,6 +258,7 @@ export type OrderCreateInput = {
     id?: string;
     status?: $Enums.OrderStatus;
     totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     table: Prisma.TableCreateNestedOneWithoutOrdersInput;
@@ -258,6 +271,7 @@ export type OrderUncheckedCreateInput = {
     orderSessionId?: string | null;
     status?: $Enums.OrderStatus;
     totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput;
@@ -266,6 +280,7 @@ export type OrderUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     table?: Prisma.TableUpdateOneRequiredWithoutOrdersNestedInput;
@@ -278,6 +293,7 @@ export type OrderUncheckedUpdateInput = {
     orderSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput;
@@ -288,6 +304,7 @@ export type OrderCreateManyInput = {
     orderSessionId?: string | null;
     status?: $Enums.OrderStatus;
     totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
 };
@@ -295,6 +312,7 @@ export type OrderUpdateManyMutationInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -304,6 +322,7 @@ export type OrderUncheckedUpdateManyInput = {
     orderSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -321,6 +340,7 @@ export type OrderCountOrderByAggregateInput = {
     orderSessionId?: Prisma.SortOrder;
     status?: Prisma.SortOrder;
     totalAmount?: Prisma.SortOrder;
+    isRead?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
 };
@@ -333,6 +353,7 @@ export type OrderMaxOrderByAggregateInput = {
     orderSessionId?: Prisma.SortOrder;
     status?: Prisma.SortOrder;
     totalAmount?: Prisma.SortOrder;
+    isRead?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
 };
@@ -342,6 +363,7 @@ export type OrderMinOrderByAggregateInput = {
     orderSessionId?: Prisma.SortOrder;
     status?: Prisma.SortOrder;
     totalAmount?: Prisma.SortOrder;
+    isRead?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
 };
@@ -447,6 +469,7 @@ export type OrderCreateWithoutTableInput = {
     id?: string;
     status?: $Enums.OrderStatus;
     totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     orderSession?: Prisma.OrderSessionCreateNestedOneWithoutOrdersInput;
@@ -457,6 +480,7 @@ export type OrderUncheckedCreateWithoutTableInput = {
     orderSessionId?: string | null;
     status?: $Enums.OrderStatus;
     totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput;
@@ -491,6 +515,7 @@ export type OrderScalarWhereInput = {
     orderSessionId?: Prisma.StringNullableFilter<"Order"> | string | null;
     status?: Prisma.EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus;
     totalAmount?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: Prisma.BoolFilter<"Order"> | boolean;
     createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string;
 };
@@ -498,6 +523,7 @@ export type OrderCreateWithoutOrderSessionInput = {
     id?: string;
     status?: $Enums.OrderStatus;
     totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     table: Prisma.TableCreateNestedOneWithoutOrdersInput;
@@ -508,6 +534,7 @@ export type OrderUncheckedCreateWithoutOrderSessionInput = {
     tableId: string;
     status?: $Enums.OrderStatus;
     totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput;
@@ -537,6 +564,7 @@ export type OrderCreateWithoutItemsInput = {
     id?: string;
     status?: $Enums.OrderStatus;
     totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     table: Prisma.TableCreateNestedOneWithoutOrdersInput;
@@ -548,6 +576,7 @@ export type OrderUncheckedCreateWithoutItemsInput = {
     orderSessionId?: string | null;
     status?: $Enums.OrderStatus;
     totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
 };
@@ -568,6 +597,7 @@ export type OrderUpdateWithoutItemsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     table?: Prisma.TableUpdateOneRequiredWithoutOrdersNestedInput;
@@ -579,6 +609,7 @@ export type OrderUncheckedUpdateWithoutItemsInput = {
     orderSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -587,6 +618,7 @@ export type OrderCreateManyTableInput = {
     orderSessionId?: string | null;
     status?: $Enums.OrderStatus;
     totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
 };
@@ -594,6 +626,7 @@ export type OrderUpdateWithoutTableInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     orderSession?: Prisma.OrderSessionUpdateOneWithoutOrdersNestedInput;
@@ -604,6 +637,7 @@ export type OrderUncheckedUpdateWithoutTableInput = {
     orderSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput;
@@ -613,6 +647,7 @@ export type OrderUncheckedUpdateManyWithoutTableInput = {
     orderSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -621,6 +656,7 @@ export type OrderCreateManyOrderSessionInput = {
     tableId: string;
     status?: $Enums.OrderStatus;
     totalAmount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: boolean;
     createdAt?: Date | string;
     updatedAt?: Date | string;
 };
@@ -628,6 +664,7 @@ export type OrderUpdateWithoutOrderSessionInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     table?: Prisma.TableUpdateOneRequiredWithoutOrdersNestedInput;
@@ -638,6 +675,7 @@ export type OrderUncheckedUpdateWithoutOrderSessionInput = {
     tableId?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput;
@@ -647,6 +685,7 @@ export type OrderUncheckedUpdateManyWithoutOrderSessionInput = {
     tableId?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus;
     totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -680,6 +719,7 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     orderSessionId?: boolean;
     status?: boolean;
     totalAmount?: boolean;
+    isRead?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
     table?: boolean | Prisma.TableDefaultArgs<ExtArgs>;
@@ -693,6 +733,7 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
     orderSessionId?: boolean;
     status?: boolean;
     totalAmount?: boolean;
+    isRead?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
     table?: boolean | Prisma.TableDefaultArgs<ExtArgs>;
@@ -704,6 +745,7 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
     orderSessionId?: boolean;
     status?: boolean;
     totalAmount?: boolean;
+    isRead?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
     table?: boolean | Prisma.TableDefaultArgs<ExtArgs>;
@@ -715,10 +757,11 @@ export type OrderSelectScalar = {
     orderSessionId?: boolean;
     status?: boolean;
     totalAmount?: boolean;
+    isRead?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
 };
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tableId" | "orderSessionId" | "status" | "totalAmount" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>;
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tableId" | "orderSessionId" | "status" | "totalAmount" | "isRead" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>;
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     table?: boolean | Prisma.TableDefaultArgs<ExtArgs>;
     orderSession?: boolean | Prisma.Order$orderSessionArgs<ExtArgs>;
@@ -746,6 +789,7 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
         orderSessionId: string | null;
         status: $Enums.OrderStatus;
         totalAmount: runtime.Decimal;
+        isRead: boolean;
         createdAt: Date;
         updatedAt: Date;
     }, ExtArgs["result"]["order"]>;
@@ -1110,6 +1154,7 @@ export interface OrderFieldRefs {
     readonly orderSessionId: Prisma.FieldRef<"Order", 'String'>;
     readonly status: Prisma.FieldRef<"Order", 'OrderStatus'>;
     readonly totalAmount: Prisma.FieldRef<"Order", 'Decimal'>;
+    readonly isRead: Prisma.FieldRef<"Order", 'Boolean'>;
     readonly createdAt: Prisma.FieldRef<"Order", 'DateTime'>;
     readonly updatedAt: Prisma.FieldRef<"Order", 'DateTime'>;
 }

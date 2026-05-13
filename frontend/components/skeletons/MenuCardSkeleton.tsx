@@ -5,27 +5,32 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export function MenuCardSkeleton() {
   return (
-    <Card className="overflow-hidden  border bg-card rounded-none  shadow-sm">
-      <div className="relative w-full h-52">
-        <Skeleton className="w-full h-full" />
+    <Card className="overflow-hidden border bg-card rounded-lg shadow-sm">
+      <div className="flex gap-4 p-4">
+        {/* Image Skeleton */}
+        <div className="w-24 h-24 md:w-28 md:h-28 flex-shrink-0 rounded-md">
+          <Skeleton className="w-full h-full" />
+        </div>
+
+        {/* Content Skeleton */}
+        <div className="flex-1 space-y-2">
+          {/* Title and Description */}
+          <div className="space-y-2">
+            <Skeleton className="h-5 w-3/4" />
+            <Skeleton className="h-3 w-full" />
+            <Skeleton className="h-3 w-2/3" />
+          </div>
+
+          {/* Price, Time, and Button */}
+          <div className="flex items-center justify-between pt-3">
+            <div className="space-y-1">
+              <Skeleton className="h-5 w-20" />
+              <Skeleton className="h-3 w-16" />
+            </div>
+            <Skeleton className="w-9 h-9 md:w-10 md:h-10 rounded-lg" />
+          </div>
+        </div>
       </div>
-
-      <CardContent className="p-5 space-y-4">
-        <div className="flex items-start justify-between gap-3">
-          <Skeleton className="h-6 w-3/4" />
-          <Skeleton className="h-6 w-16" />
-        </div>
-
-        <div className="space-y-2">
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-2/3" />
-        </div>
-
-        <div className="flex items-center justify-between pt-2">
-          <Skeleton className="h-4 w-24" />
-          <Skeleton className="w-10 h-10 rounded-full" />
-        </div>
-      </CardContent>
     </Card>
   );
 }

@@ -837,6 +837,7 @@ export declare const OrderScalarFieldEnum: {
     readonly orderSessionId: "orderSessionId";
     readonly status: "status";
     readonly totalAmount: "totalAmount";
+    readonly isRead: "isRead";
     readonly createdAt: "createdAt";
     readonly updatedAt: "updatedAt";
 };

@@ -59,7 +59,7 @@ export function MenuGrid({
     <div className="group-has-data-pending:animate-pulse space-y-10">
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         {menuItems.map((item) => (
-          <MenuCard key={item.slug} menu={item} />
+          <MenuCard key={item.id} menu={item} />
         ))}
       </div>
       {totalPages > 1 && (

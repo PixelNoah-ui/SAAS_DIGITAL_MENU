@@ -9,6 +9,9 @@ import {
   getOrder,
   updateOrderStatus,
   deleteOrder,
+  getUnreadOrderCount,
+  markOrdersRead,
+  getAdminOrders,
 } from "../controller/orderController.js";
 
 const router = express.Router();
@@ -18,7 +21,11 @@ router.post("/", createOrder);
 router.get("/session", requireSession, getOrdersBySession);
 
 router.use(protect, restrictTo("ADMIN", "MANAGER"));
-router.get("/", getOrders);
+
+router.get("/", getOrders).get("/adminOrders", getAdminOrders);
+router.get("/unread-count", getUnreadOrderCount);
+router.patch("/mark-read", markOrdersRead);
+router.patch("/mark-as-read", markOrdersRead);
 router.get("/:id", getOrder);
 router.patch("/:id", updateOrderStatus);
 router.delete("/:id", deleteOrder);

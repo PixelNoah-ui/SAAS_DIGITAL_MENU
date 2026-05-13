@@ -1,174 +1,93 @@
 "use client";
 
-import { CheckCircle2, ChefHat, Package, Headphones, Bike } from "lucide-react";
-
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import OrderSearchFilterLayout from "./OrderSearchFilter";
+import { OrderGrid } from "@/components/OrderGrid";
+import { useAllOrders } from "@/hooks/useAllOrders";
+import { useTableStore } from "@/store/tableStore";
+import InvalidPage from "@/app/InvalidPage/page";
 import { Button } from "@/components/ui/button";
-import { HelpDialog } from "@/components/HelpDialog";
-import { useActiveOrders } from "@/hooks/useActiveOrders";
-import { ActiveOrderSkeleton } from "@/components/skeletons/ActiveOrderSkeleton";
-import EmptyOrder from "@/components/EmptyOrder";
 
-function formatTime(dateString: string) {
-  const date = new Date(dateString);
-  return date.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-  });
-}
+function OrdersContent() {
+  const searchParams = useSearchParams();
+  const table = useTableStore((state) => state.table);
 
-function getStatusStep(status: string) {
-  switch (status) {
-    case "PENDING":
-      return 0;
-    case "PREPARING":
-      return 1;
-    case "READY":
-      return 2;
-    case "DELIVERED":
-      return 3;
-    default:
-      return 0;
-  }
-}
-
-interface OrderItem {
-  id: string;
-  menuItemId: string;
-  quantity: number;
-  price: string;
-  menuItem?: {
-    name: string;
+  const filters = {
+    page: Number(searchParams.get("page")) || 1,
+    status: searchParams.getAll("status"),
+    date_from: searchParams.get("date_from") || undefined,
+    date_to: searchParams.get("date_to") || undefined,
+    sort: searchParams.get("sort") || "newest",
   };
-}
 
-interface Order {
-  id: string;
-  totalAmount: string;
-  status: string;
-  createdAt: string;
-  items: OrderItem[];
+  const { data, isLoading, error } = useAllOrders(filters);
+
+  if (!table) {
+    return <InvalidPage isInvalidQR={false} />;
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-4 py-20 text-center">
+        <div className="rounded-full bg-card p-4 border border-border shadow-sm">
+          <svg
+            className="h-10 w-10 text-primary"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        </div>
+        <h2 className="text-xl font-bold text-foreground">
+          No Active Orders Yet
+        </h2>
+        <p className="text-sm text-muted-foreground max-w-xs">
+          You haven&apos;t placed any orders yet. Head to the menu to get
+          started!
+        </p>
+        <div className="pt-4">
+          <Link href="/">
+            <Button className="rounded-none px-6 py-2 text-sm">
+              Browse Menu
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const orders = data?.data.orders || [];
+  const totalPages = data?.data.pagination.totalPages || 1;
+  const currentPage = data?.data.pagination.currentPage || 1;
+
+  return (
+    <OrderSearchFilterLayout>
+      <div className="space-y-6">
+        <OrderGrid
+          orders={orders}
+          totalPages={totalPages}
+          currentPage={currentPage}
+          isLoading={isLoading}
+        />
+      </div>
+    </OrderSearchFilterLayout>
+  );
 }
 
 export default function Page() {
-  // ✅ CLEAN HOOK
-  const { data, isLoading, error } = useActiveOrders();
-
-  // ⏳ LOADING
-  if (isLoading) {
-    return <ActiveOrderSkeleton />;
-  }
-
-  // ❌ ERROR / EMPTY
-  if (error || !data?.data?.orders?.length) {
-    return <EmptyOrder />;
-  }
-
-  // ✅ ACTIVE ORDER
-  const activeOrder: Order = data.data.orders[0];
-
-  const currentStep = getStatusStep(activeOrder.status);
-
-  const totalItems = activeOrder.items.reduce(
-    (sum, item) => sum + item.quantity,
-    0,
-  );
-
   return (
-    <div className="border-t border-muted-foreground px-3 py-5">
-      {/* HEADER */}
-      <div className="flex justify-between items-start">
-        <div>
-          <h2 className="text-lg font-semibold">
-            Order {activeOrder.id.slice(-6).toUpperCase()}
-          </h2>
-
-          <p className="text-sm text-muted-foreground">
-            Placed at {formatTime(activeOrder.createdAt)}
-          </p>
-        </div>
-
-        <div className="text-right">
-          <p className="text-lg font-semibold">
-            {Number(activeOrder.totalAmount).toFixed(2)} ETB
-          </p>
-          <p className="text-sm text-muted-foreground">{totalItems} items</p>
-        </div>
-      </div>
-
-      {/* STEPS */}
-      <div className="flex items-center justify-between mt-8">
-        <Step
-          icon={CheckCircle2}
-          active={currentStep >= 0}
-          label="Order"
-          sub="Received"
-        />
-        <Step
-          icon={ChefHat}
-          active={currentStep >= 1}
-          label="Kitchen"
-          sub="Preparing"
-        />
-        <Step icon={Bike} active={currentStep >= 2} label="On the Way" />
-        <Step icon={Package} active={currentStep >= 3} label="Delivered" />
-      </div>
-
-      <div className="border-t my-6" />
-
-      {/* ITEMS */}
-      <div>
-        <h3 className="text-sm font-semibold mb-2">ORDER DETAILS</h3>
-
-        {activeOrder.items.map((item) => (
-          <p key={item.id} className="text-muted-foreground">
-            <span className="font-medium text-foreground">
-              {item.quantity}x
-            </span>{" "}
-            {item.menuItem?.name || `Item #${item.menuItemId}`}
-          </p>
-        ))}
-      </div>
-
-      {/* HELP */}
-      <div className="mt-6">
-        <HelpDialog>
-          <Button variant="outline" className="w-full gap-2">
-            <Headphones size={18} />
-            Need Help?
-          </Button>
-        </HelpDialog>
-      </div>
-    </div>
-  );
-}
-
-// STEP COMPONENT (UNCHANGED)
-function Step({
-  icon: Icon,
-  active,
-  label,
-  sub,
-}: {
-  icon: React.ComponentType<{ size: number; className?: string }>;
-  active: boolean;
-  label: string;
-  sub?: string;
-}) {
-  return (
-    <div className="flex flex-col items-center text-center">
-      <div
-        className={`w-12 h-12 flex items-center justify-center rounded-full ${
-          active ? "border-2 border-primary bg-primary/10" : "bg-muted"
-        }`}
-      >
-        <Icon
-          className={active ? "text-primary" : "text-muted-foreground"}
-          size={20}
-        />
-      </div>
-      <p className="text-sm mt-2">{label}</p>
-      {sub && <p className="text-xs text-muted-foreground">{sub}</p>}
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <OrdersContent />
+    </Suspense>
   );
 }

@@ -17,12 +17,31 @@ interface HelpDialogProps {
   children: React.ReactNode;
 }
 
+// Helper function to format telegram URL
+function formatTelegramUrl(identifier: string): string {
+  if (!identifier) return "https://t.me/";
+
+  // Remove @ if present
+  const cleaned = identifier.replace(/^@/, "");
+
+  // Check if it's a phone number (only digits, possibly with + or -)
+  if (/^[\d+\-()]+$/.test(cleaned)) {
+    // If it looks like a phone number, ensure it starts with +
+    const withPlus = cleaned.startsWith("+") ? cleaned : `+${cleaned}`;
+    return `https://t.me/${withPlus}`;
+  }
+
+  // Otherwise treat as username
+  return `https://t.me/${cleaned}`;
+}
+
 export function HelpDialog({ children }: HelpDialogProps) {
   const { data } = useRestaurantInfo();
   const restaurant = data?.data?.restaurant;
 
   const phone = restaurant?.phone || "+251912345678";
-  const telegramUsername = restaurant?.telegramUsername || "251912345678";
+  const telegramUsername = restaurant?.telegramUsername || "";
+  const telegramUrl = formatTelegramUrl(telegramUsername || phone);
 
   return (
     <Dialog>
@@ -51,11 +70,7 @@ export function HelpDialog({ children }: HelpDialogProps) {
           </a>
 
           {/* Telegram Button */}
-          <Link
-            href={`https://t.me/${telegramUsername}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={telegramUrl} target="_blank" rel="noopener noreferrer">
             <Button
               className="w-full gap-2 justify-start border border-border bg-background hover:bg-muted text-foreground"
               variant="outline"
@@ -63,7 +78,7 @@ export function HelpDialog({ children }: HelpDialogProps) {
               <MessageCircle size={18} className="text-primary" />
               Message on Telegram
             </Button>
-          </Link>
+          </a>
         </div>
       </DialogContent>
     </Dialog>

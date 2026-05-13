@@ -26,8 +26,8 @@ export default function MenuCard({ menu }: { menu: MenuCardProps }) {
   const addItem = useCartStore((state) => state.addItem);
 
   const handleNavigate = () => {
-    if (slug) {
-      router.push(`/menu/${slug}`);
+    if (id) {
+      router.push(`/menu/${id}`);
     }
   };
 
@@ -47,41 +47,48 @@ export default function MenuCard({ menu }: { menu: MenuCardProps }) {
   return (
     <Card
       onClick={handleNavigate}
-      className="cursor-pointer overflow-hidden rounded-none border bg-card shadow-sm hover:shadow-md transition-all duration-300"
+      className="cursor-pointer overflow-hidden rounded-lg border border-border bg-card shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
     >
-      <div className="relative w-full h-52">
-        <Image src={image} alt={title} fill className="object-cover" />
-      </div>
-
-      <CardContent className="p-5 space-y-4">
-        <div className="flex items-start justify-between gap-3">
-          <h2 className="text-lg font-semibold text-foreground leading-snug">
-            {title}
-          </h2>
-          <span className="text-base font-semibold text-primary">
-            {price} ETB
-          </span>
+      <div className="flex gap-4 p-4">
+        {/* Image Section */}
+        <div className="relative w-24 h-24 md:w-28 md:h-28 flex-shrink-0 rounded-md overflow-hidden">
+          <Image src={image} alt={title} fill className="object-cover" />
         </div>
 
-        <p className="text-sm text-muted-foreground line-clamp-2">
-          {description}
-        </p>
-
-        <div className="flex items-center justify-between pt-2">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <span className="w-2 h-2 rounded-full bg-primary" />
-            {time}
+        {/* Content Section */}
+        <CardContent className="flex-1 p-0 space-y-2 flex flex-col justify-between">
+          {/* Title and Price */}
+          <div>
+            <h2 className="text-base md:text-lg font-semibold text-foreground leading-snug">
+              {title}
+            </h2>
+            <p className="text-xs md:text-sm text-muted-foreground line-clamp-2 mt-1">
+              {description}
+            </p>
           </div>
 
-          <Button
-            size="icon"
-            className="rounded-full w-10 h-10 shadow-sm"
-            onClick={handleAddToCart}
-          >
-            <Plus size={18} />
-          </Button>
-        </div>
-      </CardContent>
+          {/* Price, Time, and Action */}
+          <div className="flex items-center justify-between pt-2">
+            <div className="flex flex-col gap-1">
+              <span className="text-base md:text-lg font-bold text-primary">
+                {price} ETB
+              </span>
+              <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                {time}
+              </div>
+            </div>
+
+            <Button
+              size="icon"
+              className="rounded-lg w-9 h-9 md:w-10 md:h-10 shadow-sm"
+              onClick={handleAddToCart}
+            >
+              <Plus size={16} className="md:size-5" />
+            </Button>
+          </div>
+        </CardContent>
+      </div>
     </Card>
   );
 }

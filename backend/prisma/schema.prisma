@@ -84,6 +84,7 @@ model Order {
   orderSessionId String?
   status         OrderStatus @default(PENDING)
   totalAmount    Decimal     @db.Decimal(10, 2)
+  isRead         Boolean     @default(false)
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
 
@@ -94,6 +95,7 @@ model Order {
   @@index([tableId])
   @@index([status])
   @@index([orderSessionId])
+  @@index([isRead])
   @@map("orders")
 }
 

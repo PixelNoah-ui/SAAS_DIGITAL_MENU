@@ -101,7 +101,7 @@ export default async function getMenus(
 
     return {
       menuItems: result.data.menuItems.map((item) => ({
-        slug: item.id,
+        id: item.id,
         title: item.name,
         description: item.description || "",
         price: Number(item.price),
