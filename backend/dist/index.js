@@ -30,6 +30,7 @@ app.use("/api", limiter);
 app.use(cors({
     origin: [
         "http://localhost:3000",
+        "https://pixeldigital.me",
         "http://localhost:3001",
         "http://localhost:3002",
         "http://10.210.16.82:3000",
