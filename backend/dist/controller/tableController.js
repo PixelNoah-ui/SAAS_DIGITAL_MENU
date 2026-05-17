@@ -91,7 +91,7 @@ export const getAdminTables = catchAsync(async (req, res) => {
     const search = getString(req.query.q);
     const status = getString(req.query.status);
     const page = Math.max(1, getNumber(req.query.page) || 1);
-    const limit = Math.min(100, Math.max(1, getNumber(req.query.limit) || 50));
+    const limit = 10;
     const where = {};
     // Search filter
     if (search) {

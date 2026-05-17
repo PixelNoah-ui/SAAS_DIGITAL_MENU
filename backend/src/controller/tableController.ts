@@ -112,7 +112,7 @@ export const getAdminTables = catchAsync(async (req, res) => {
   const search = getString(req.query.q);
   const status = getString(req.query.status);
   const page = Math.max(1, getNumber(req.query.page) || 1);
-  const limit = Math.min(100, Math.max(1, getNumber(req.query.limit) || 50));
+  const limit = 10;
 
   const where: any = {};
 
@@ -283,7 +283,6 @@ export const deleteTable = catchAsync(async (req, res) => {
 /**
  * Get table by QR token (for customer scanning)
  */
-
 
 export const scanTable = catchAsync(async (req, res, next) => {
   const { qrToken } = req.body;
