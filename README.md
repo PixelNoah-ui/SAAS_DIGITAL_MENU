@@ -23,8 +23,8 @@
 ## 🚀 Live Demo
 
 <p align="center">
-  <a href="https://pixelshopadmin.vercel.app">
-    <img src="docs/screenshots/qr-demo.png" alt="Scan QR Code to Open Live Demo" width="280"/>
+  <a href="https://www.pixeldigitalmenu.me/4d770de4fcab65402f17a083dcb5cd03">
+    <img src="docs/screenshots/qr-demo.jpg" alt="Scan QR Code to Open Live Demo" width="280"/>
   </a>
 </p>
 
