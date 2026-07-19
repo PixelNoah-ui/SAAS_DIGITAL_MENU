@@ -19,6 +19,18 @@
 ![Zustand](https://img.shields.io/badge/State-Zustand-443E38?style=flat-square)
 ![Deploy](https://img.shields.io/badge/Deploy-Vercel-black?style=flat-square&logo=vercel&logoColor=white)
 
+
+## 🚀 Live Demo
+
+<p align="center">
+  <a href="https://pixelshopadmin.vercel.app">
+    <img src="docs/screenshots/qr-demo.png" alt="Scan QR Code to Open Live Demo" width="280"/>
+  </a>
+</p>
+
+<p align="center">
+<b>📱 Scan the QR code or click the image to open the live demo.</b>
+</p>
 </div>
 
 ---
